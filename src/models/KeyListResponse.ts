@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * BackedUp API
+ * Saved API
  * Microservices-based backup and vault management platform with encrypted backups and distributed storage
  *
  * The version of the OpenAPI document: 1.0.0
