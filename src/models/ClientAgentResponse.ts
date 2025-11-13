@@ -73,7 +73,55 @@ export interface ClientAgentResponse {
      * @memberof ClientAgentResponse
      */
     public_url?: string;
+    /**
+     * Current status of the agent
+     * @type {string}
+     * @memberof ClientAgentResponse
+     */
+    status?: ClientAgentResponseStatusEnum;
+    /**
+     * Certificate common name
+     * @type {string}
+     * @memberof ClientAgentResponse
+     */
+    certificate_cn?: string;
+    /**
+     * Certificate expiration date
+     * @type {Date}
+     * @memberof ClientAgentResponse
+     */
+    certificate_expiry?: Date;
+    /**
+     * Temporal namespace for this agent
+     * @type {string}
+     * @memberof ClientAgentResponse
+     */
+    temporal_namespace?: string;
+    /**
+     * Temporal task queue name
+     * @type {string}
+     * @memberof ClientAgentResponse
+     */
+    temporal_task_queue?: string;
+    /**
+     * Temporal host and port
+     * @type {string}
+     * @memberof ClientAgentResponse
+     */
+    temporal_host_port?: string;
 }
+
+
+/**
+ * @export
+ */
+export const ClientAgentResponseStatusEnum = {
+    Active: 'active',
+    PendingCertificate: 'pending_certificate',
+    Disabled: 'disabled'
+} as const;
+export type ClientAgentResponseStatusEnum = typeof ClientAgentResponseStatusEnum[keyof typeof ClientAgentResponseStatusEnum];
+
 
 /**
  * Check if a given object implements the ClientAgentResponse interface.
@@ -101,6 +149,12 @@ export function ClientAgentResponseFromJSONTyped(json: any, ignoreDiscriminator:
         'client_secret': json['client_secret'] == null ? undefined : json['client_secret'],
         'scope': json['scope'] == null ? undefined : json['scope'],
         'public_url': json['public_url'] == null ? undefined : json['public_url'],
+        'status': json['status'] == null ? undefined : json['status'],
+        'certificate_cn': json['certificate_cn'] == null ? undefined : json['certificate_cn'],
+        'certificate_expiry': json['certificate_expiry'] == null ? undefined : (new Date(json['certificate_expiry'])),
+        'temporal_namespace': json['temporal_namespace'] == null ? undefined : json['temporal_namespace'],
+        'temporal_task_queue': json['temporal_task_queue'] == null ? undefined : json['temporal_task_queue'],
+        'temporal_host_port': json['temporal_host_port'] == null ? undefined : json['temporal_host_port'],
     };
 }
 
@@ -124,6 +178,12 @@ export function ClientAgentResponseToJSONTyped(value?: ClientAgentResponse | nul
         'client_secret': value['client_secret'],
         'scope': value['scope'],
         'public_url': value['public_url'],
+        'status': value['status'],
+        'certificate_cn': value['certificate_cn'],
+        'certificate_expiry': value['certificate_expiry'] == null ? undefined : ((value['certificate_expiry']).toISOString()),
+        'temporal_namespace': value['temporal_namespace'],
+        'temporal_task_queue': value['temporal_task_queue'],
+        'temporal_host_port': value['temporal_host_port'],
     };
 }
 
