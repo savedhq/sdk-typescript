@@ -85,8 +85,6 @@ src/models/SetProjectEncryptionKey.ts
 src/models/SetProjectKeyRequest.ts
 src/models/SignalListResponse.ts
 src/models/StorageListResponse.ts
-src/models/SubmitCSR200Response.ts
-src/models/SubmitCSRRequest.ts
 src/models/UpdateAutoBackupJson.ts
 src/models/UpdateAutoBackupRequest.ts
 src/models/UpdateClientAgent.ts

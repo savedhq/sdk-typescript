@@ -71,8 +71,6 @@ export * from './SetProjectEncryptionKey';
 export * from './SetProjectKeyRequest';
 export * from './SignalListResponse';
 export * from './StorageListResponse';
-export * from './SubmitCSR200Response';
-export * from './SubmitCSRRequest';
 export * from './UpdateAutoBackupJson';
 export * from './UpdateAutoBackupRequest';
 export * from './UpdateClientAgent';

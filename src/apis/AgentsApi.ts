@@ -19,8 +19,6 @@ import type {
   ListAgents200Response,
   ListAgents200ResponseAllOfItemsInner,
   ListWorkspaces401Response,
-  SubmitCSR200Response,
-  SubmitCSRRequest,
 } from '../models/index';
 import {
     CreateWorkspaceRequestFromJSON,
@@ -31,10 +29,6 @@ import {
     ListAgents200ResponseAllOfItemsInnerToJSON,
     ListWorkspaces401ResponseFromJSON,
     ListWorkspaces401ResponseToJSON,
-    SubmitCSR200ResponseFromJSON,
-    SubmitCSR200ResponseToJSON,
-    SubmitCSRRequestFromJSON,
-    SubmitCSRRequestToJSON,
 } from '../models/index';
 
 export interface CreateAgentRequest {
@@ -56,12 +50,6 @@ export interface ListAgentsRequest {
     workspaceId: string;
     page?: number;
     limit?: number;
-}
-
-export interface SubmitCSROperationRequest {
-    workspaceId: string;
-    id: string;
-    submitCSRRequest: SubmitCSRRequest;
 }
 
 export interface UpdateAgentRequest {
@@ -141,23 +129,6 @@ export interface AgentsApiInterface {
      * List agents
      */
     listAgents(workspaceId: string, page?: number, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200Response>;
-
-    /**
-     * 
-     * @summary Submit CSR and receive signed certificate
-     * @param {string} workspaceId 
-     * @param {string} id 
-     * @param {SubmitCSRRequest} submitCSRRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AgentsApiInterface
-     */
-    submitCSRRaw(requestParameters: SubmitCSROperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubmitCSR200Response>>;
-
-    /**
-     * Submit CSR and receive signed certificate
-     */
-    submitCSR(workspaceId: string, id: string, submitCSRRequest: SubmitCSRRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubmitCSR200Response>;
 
     /**
      * 
@@ -393,69 +364,6 @@ export class AgentsApi extends runtime.BaseAPI implements AgentsApiInterface {
      */
     async listAgents(workspaceId: string, page?: number, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200Response> {
         const response = await this.listAgentsRaw({ workspaceId: workspaceId, page: page, limit: limit }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Submit CSR and receive signed certificate
-     */
-    async submitCSRRaw(requestParameters: SubmitCSROperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubmitCSR200Response>> {
-        if (requestParameters['workspaceId'] == null) {
-            throw new runtime.RequiredError(
-                'workspaceId',
-                'Required parameter "workspaceId" was null or undefined when calling submitCSR().'
-            );
-        }
-
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling submitCSR().'
-            );
-        }
-
-        if (requestParameters['submitCSRRequest'] == null) {
-            throw new runtime.RequiredError(
-                'submitCSRRequest',
-                'Required parameter "submitCSRRequest" was null or undefined when calling submitCSR().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/workspaces/{workspace_id}/agents/{id}/certificate`;
-        urlPath = urlPath.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId'])));
-        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: SubmitCSRRequestToJSON(requestParameters['submitCSRRequest']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => SubmitCSR200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Submit CSR and receive signed certificate
-     */
-    async submitCSR(workspaceId: string, id: string, submitCSRRequest: SubmitCSRRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubmitCSR200Response> {
-        const response = await this.submitCSRRaw({ workspaceId: workspaceId, id: id, submitCSRRequest: submitCSRRequest }, initOverrides);
         return await response.value();
     }
 

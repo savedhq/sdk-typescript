@@ -80,7 +80,7 @@ export interface ListAgents200ResponseAllOfItemsInner {
      */
     status?: ListAgents200ResponseAllOfItemsInnerStatusEnum;
     /**
-     * Certificate common name
+     * Certificate common name (agent ID)
      * @type {string}
      * @memberof ListAgents200ResponseAllOfItemsInner
      */
@@ -91,6 +91,48 @@ export interface ListAgents200ResponseAllOfItemsInner {
      * @memberof ListAgents200ResponseAllOfItemsInner
      */
     certificate_expiry?: Date;
+    /**
+     * SPIFFE workload identity URI
+     * @type {string}
+     * @memberof ListAgents200ResponseAllOfItemsInner
+     */
+    spiffe_uri?: string;
+    /**
+     * Certificate key algorithm
+     * @type {string}
+     * @memberof ListAgents200ResponseAllOfItemsInner
+     */
+    key_type?: string;
+    /**
+     * Certificate revocation timestamp
+     * @type {Date}
+     * @memberof ListAgents200ResponseAllOfItemsInner
+     */
+    revoked_at?: Date;
+    /**
+     * Reason for certificate revocation
+     * @type {string}
+     * @memberof ListAgents200ResponseAllOfItemsInner
+     */
+    revocation_reason?: string;
+    /**
+     * PEM-encoded certificate (only returned on creation/rotation)
+     * @type {string}
+     * @memberof ListAgents200ResponseAllOfItemsInner
+     */
+    certificate?: string;
+    /**
+     * PEM-encoded private key (only returned on creation/rotation, sensitive!)
+     * @type {string}
+     * @memberof ListAgents200ResponseAllOfItemsInner
+     */
+    private_key?: string;
+    /**
+     * PEM-encoded CA certificate chain (only returned on creation/rotation)
+     * @type {string}
+     * @memberof ListAgents200ResponseAllOfItemsInner
+     */
+    ca_certificate?: string;
     /**
      * Temporal namespace for this agent
      * @type {string}
@@ -118,7 +160,8 @@ export interface ListAgents200ResponseAllOfItemsInner {
 export const ListAgents200ResponseAllOfItemsInnerStatusEnum = {
     Active: 'active',
     PendingCertificate: 'pending_certificate',
-    Disabled: 'disabled'
+    Disabled: 'disabled',
+    Revoked: 'revoked'
 } as const;
 export type ListAgents200ResponseAllOfItemsInnerStatusEnum = typeof ListAgents200ResponseAllOfItemsInnerStatusEnum[keyof typeof ListAgents200ResponseAllOfItemsInnerStatusEnum];
 
@@ -152,6 +195,13 @@ export function ListAgents200ResponseAllOfItemsInnerFromJSONTyped(json: any, ign
         'status': json['status'] == null ? undefined : json['status'],
         'certificate_cn': json['certificate_cn'] == null ? undefined : json['certificate_cn'],
         'certificate_expiry': json['certificate_expiry'] == null ? undefined : (new Date(json['certificate_expiry'])),
+        'spiffe_uri': json['spiffe_uri'] == null ? undefined : json['spiffe_uri'],
+        'key_type': json['key_type'] == null ? undefined : json['key_type'],
+        'revoked_at': json['revoked_at'] == null ? undefined : (new Date(json['revoked_at'])),
+        'revocation_reason': json['revocation_reason'] == null ? undefined : json['revocation_reason'],
+        'certificate': json['certificate'] == null ? undefined : json['certificate'],
+        'private_key': json['private_key'] == null ? undefined : json['private_key'],
+        'ca_certificate': json['ca_certificate'] == null ? undefined : json['ca_certificate'],
         'temporal_namespace': json['temporal_namespace'] == null ? undefined : json['temporal_namespace'],
         'temporal_task_queue': json['temporal_task_queue'] == null ? undefined : json['temporal_task_queue'],
         'temporal_host_port': json['temporal_host_port'] == null ? undefined : json['temporal_host_port'],
@@ -181,6 +231,13 @@ export function ListAgents200ResponseAllOfItemsInnerToJSONTyped(value?: ListAgen
         'status': value['status'],
         'certificate_cn': value['certificate_cn'],
         'certificate_expiry': value['certificate_expiry'] == null ? undefined : ((value['certificate_expiry']).toISOString()),
+        'spiffe_uri': value['spiffe_uri'],
+        'key_type': value['key_type'],
+        'revoked_at': value['revoked_at'] == null ? undefined : ((value['revoked_at']).toISOString()),
+        'revocation_reason': value['revocation_reason'],
+        'certificate': value['certificate'],
+        'private_key': value['private_key'],
+        'ca_certificate': value['ca_certificate'],
         'temporal_namespace': value['temporal_namespace'],
         'temporal_task_queue': value['temporal_task_queue'],
         'temporal_host_port': value['temporal_host_port'],
