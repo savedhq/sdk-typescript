@@ -21,6 +21,7 @@ import type {
   ListBackups200Response,
   ListBackups200ResponseAllOfItemsInner,
   ListWorkspaces401Response,
+  RequestBackupCopy200Response,
 } from '../models/index';
 import {
     ConfirmBackupUploaded200ResponseFromJSON,
@@ -35,6 +36,8 @@ import {
     ListBackups200ResponseAllOfItemsInnerToJSON,
     ListWorkspaces401ResponseFromJSON,
     ListWorkspaces401ResponseToJSON,
+    RequestBackupCopy200ResponseFromJSON,
+    RequestBackupCopy200ResponseToJSON,
 } from '../models/index';
 
 export interface ConfirmBackupUploadedOperationRequest {
@@ -156,12 +159,12 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    requestBackupCopyRaw(requestParameters: RequestBackupCopyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    requestBackupCopyRaw(requestParameters: RequestBackupCopyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestBackupCopy200Response>>;
 
     /**
      * Request backup copy for download
      */
-    requestBackupCopy(workspaceId: string, projectId: string, backupId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    requestBackupCopy(workspaceId: string, projectId: string, backupId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestBackupCopy200Response>;
 
 }
 
@@ -429,7 +432,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
     /**
      * Request backup copy for download
      */
-    async requestBackupCopyRaw(requestParameters: RequestBackupCopyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async requestBackupCopyRaw(requestParameters: RequestBackupCopyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestBackupCopy200Response>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -476,14 +479,15 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => RequestBackupCopy200ResponseFromJSON(jsonValue));
     }
 
     /**
      * Request backup copy for download
      */
-    async requestBackupCopy(workspaceId: string, projectId: string, backupId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.requestBackupCopyRaw({ workspaceId: workspaceId, projectId: projectId, backupId: backupId }, initOverrides);
+    async requestBackupCopy(workspaceId: string, projectId: string, backupId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestBackupCopy200Response> {
+        const response = await this.requestBackupCopyRaw({ workspaceId: workspaceId, projectId: projectId, backupId: backupId }, initOverrides);
+        return await response.value();
     }
 
 }

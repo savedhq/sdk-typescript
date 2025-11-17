@@ -37,7 +37,29 @@ export interface CreateBackup {
      * @memberof CreateBackup
      */
     metadata?: { [key: string]: string; };
+    /**
+     * Origin of the backup (where it was created from)
+     * @type {string}
+     * @memberof CreateBackup
+     */
+    source?: CreateBackupSourceEnum;
 }
+
+
+/**
+ * @export
+ */
+export const CreateBackupSourceEnum = {
+    Worker: 'worker',
+    Agent: 'agent',
+    Upload: 'upload',
+    Sdk: 'sdk',
+    Email: 'email',
+    Api: 'api',
+    Cli: 'cli'
+} as const;
+export type CreateBackupSourceEnum = typeof CreateBackupSourceEnum[keyof typeof CreateBackupSourceEnum];
+
 
 /**
  * Check if a given object implements the CreateBackup interface.
@@ -59,6 +81,7 @@ export function CreateBackupFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'description': json['description'] == null ? undefined : json['description'],
         'tags': json['tags'] == null ? undefined : json['tags'],
         'metadata': json['metadata'] == null ? undefined : json['metadata'],
+        'source': json['source'] == null ? undefined : json['source'],
     };
 }
 
@@ -76,6 +99,7 @@ export function CreateBackupToJSONTyped(value?: CreateBackup | null, ignoreDiscr
         'description': value['description'],
         'tags': value['tags'],
         'metadata': value['metadata'],
+        'source': value['source'],
     };
 }
 

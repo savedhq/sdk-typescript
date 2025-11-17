@@ -81,6 +81,7 @@ src/models/ModelError.ts
 src/models/PaginatedResponse.ts
 src/models/ProjectListResponse.ts
 src/models/ProjectResponse.ts
+src/models/RequestBackupCopy200Response.ts
 src/models/SetProjectEncryptionKey.ts
 src/models/SetProjectKeyRequest.ts
 src/models/SignalListResponse.ts

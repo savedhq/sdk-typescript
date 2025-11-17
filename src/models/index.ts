@@ -67,6 +67,7 @@ export * from './ModelError';
 export * from './PaginatedResponse';
 export * from './ProjectListResponse';
 export * from './ProjectResponse';
+export * from './RequestBackupCopy200Response';
 export * from './SetProjectEncryptionKey';
 export * from './SetProjectKeyRequest';
 export * from './SignalListResponse';

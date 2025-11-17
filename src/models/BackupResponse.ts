@@ -121,6 +121,12 @@ export interface BackupResponse {
      * @memberof BackupResponse
      */
     workflow_id?: string;
+    /**
+     * Origin of the backup (where it was created from)
+     * @type {string}
+     * @memberof BackupResponse
+     */
+    source?: BackupResponseSourceEnum;
 }
 
 
@@ -136,6 +142,20 @@ export const BackupResponseStatusEnum = {
     Failed: 'failed'
 } as const;
 export type BackupResponseStatusEnum = typeof BackupResponseStatusEnum[keyof typeof BackupResponseStatusEnum];
+
+/**
+ * @export
+ */
+export const BackupResponseSourceEnum = {
+    Worker: 'worker',
+    Agent: 'agent',
+    Upload: 'upload',
+    Sdk: 'sdk',
+    Email: 'email',
+    Api: 'api',
+    Cli: 'cli'
+} as const;
+export type BackupResponseSourceEnum = typeof BackupResponseSourceEnum[keyof typeof BackupResponseSourceEnum];
 
 
 /**
@@ -172,6 +192,7 @@ export function BackupResponseFromJSONTyped(json: any, ignoreDiscriminator: bool
         'presigned_url': json['presigned_url'] == null ? undefined : json['presigned_url'],
         'presigned_url_expires_at': json['presigned_url_expires_at'] == null ? undefined : (new Date(json['presigned_url_expires_at'])),
         'workflow_id': json['workflow_id'] == null ? undefined : json['workflow_id'],
+        'source': json['source'] == null ? undefined : json['source'],
     };
 }
 
@@ -203,6 +224,7 @@ export function BackupResponseToJSONTyped(value?: BackupResponse | null, ignoreD
         'presigned_url': value['presigned_url'],
         'presigned_url_expires_at': value['presigned_url_expires_at'] == null ? undefined : ((value['presigned_url_expires_at']).toISOString()),
         'workflow_id': value['workflow_id'],
+        'source': value['source'],
     };
 }
 

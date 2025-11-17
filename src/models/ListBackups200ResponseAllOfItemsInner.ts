@@ -121,6 +121,12 @@ export interface ListBackups200ResponseAllOfItemsInner {
      * @memberof ListBackups200ResponseAllOfItemsInner
      */
     workflow_id?: string;
+    /**
+     * Origin of the backup (where it was created from)
+     * @type {string}
+     * @memberof ListBackups200ResponseAllOfItemsInner
+     */
+    source?: ListBackups200ResponseAllOfItemsInnerSourceEnum;
 }
 
 
@@ -136,6 +142,20 @@ export const ListBackups200ResponseAllOfItemsInnerStatusEnum = {
     Failed: 'failed'
 } as const;
 export type ListBackups200ResponseAllOfItemsInnerStatusEnum = typeof ListBackups200ResponseAllOfItemsInnerStatusEnum[keyof typeof ListBackups200ResponseAllOfItemsInnerStatusEnum];
+
+/**
+ * @export
+ */
+export const ListBackups200ResponseAllOfItemsInnerSourceEnum = {
+    Worker: 'worker',
+    Agent: 'agent',
+    Upload: 'upload',
+    Sdk: 'sdk',
+    Email: 'email',
+    Api: 'api',
+    Cli: 'cli'
+} as const;
+export type ListBackups200ResponseAllOfItemsInnerSourceEnum = typeof ListBackups200ResponseAllOfItemsInnerSourceEnum[keyof typeof ListBackups200ResponseAllOfItemsInnerSourceEnum];
 
 
 /**
@@ -172,6 +192,7 @@ export function ListBackups200ResponseAllOfItemsInnerFromJSONTyped(json: any, ig
         'presigned_url': json['presigned_url'] == null ? undefined : json['presigned_url'],
         'presigned_url_expires_at': json['presigned_url_expires_at'] == null ? undefined : (new Date(json['presigned_url_expires_at'])),
         'workflow_id': json['workflow_id'] == null ? undefined : json['workflow_id'],
+        'source': json['source'] == null ? undefined : json['source'],
     };
 }
 
@@ -203,6 +224,7 @@ export function ListBackups200ResponseAllOfItemsInnerToJSONTyped(value?: ListBac
         'presigned_url': value['presigned_url'],
         'presigned_url_expires_at': value['presigned_url_expires_at'] == null ? undefined : ((value['presigned_url_expires_at']).toISOString()),
         'workflow_id': value['workflow_id'],
+        'source': value['source'],
     };
 }
 
