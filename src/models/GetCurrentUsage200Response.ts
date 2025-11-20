@@ -24,19 +24,19 @@ export interface GetCurrentUsage200Response {
      * @type {number}
      * @memberof GetCurrentUsage200Response
      */
-    storage_gb?: number;
+    storage_gb: number;
     /**
      * 
      * @type {number}
      * @memberof GetCurrentUsage200Response
      */
-    computation_seconds?: number;
+    computation_seconds: number;
     /**
      * 
      * @type {number}
      * @memberof GetCurrentUsage200Response
      */
-    transfer_gb?: number;
+    transfer_gb: number;
     /**
      * 
      * @type {Date}
@@ -55,6 +55,9 @@ export interface GetCurrentUsage200Response {
  * Check if a given object implements the GetCurrentUsage200Response interface.
  */
 export function instanceOfGetCurrentUsage200Response(value: object): value is GetCurrentUsage200Response {
+    if (!('storage_gb' in value) || value['storage_gb'] === undefined) return false;
+    if (!('computation_seconds' in value) || value['computation_seconds'] === undefined) return false;
+    if (!('transfer_gb' in value) || value['transfer_gb'] === undefined) return false;
     return true;
 }
 
@@ -68,9 +71,9 @@ export function GetCurrentUsage200ResponseFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'storage_gb': json['storage_gb'] == null ? undefined : json['storage_gb'],
-        'computation_seconds': json['computation_seconds'] == null ? undefined : json['computation_seconds'],
-        'transfer_gb': json['transfer_gb'] == null ? undefined : json['transfer_gb'],
+        'storage_gb': json['storage_gb'],
+        'computation_seconds': json['computation_seconds'],
+        'transfer_gb': json['transfer_gb'],
         'period_start': json['period_start'] == null ? undefined : (new Date(json['period_start'])),
         'period_end': json['period_end'] == null ? undefined : (new Date(json['period_end'])),
     };

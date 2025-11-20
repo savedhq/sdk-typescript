@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 README.md
 package.json
 src/apis/AgentsApi.ts
@@ -67,8 +66,9 @@ src/models/ListBackups200ResponseAllOfItemsInner.ts
 src/models/ListInvoices200ResponseInner.ts
 src/models/ListKeys200Response.ts
 src/models/ListKeys200ResponseAllOfItemsInner.ts
-src/models/ListPaymentMethods200ResponseInner.ts
-src/models/ListPaymentMethods200ResponseInnerCard.ts
+src/models/ListPaymentMethods200Response.ts
+src/models/ListPaymentMethods200ResponseDataInner.ts
+src/models/ListPaymentMethods200ResponseDataInnerCard.ts
 src/models/ListProjects200Response.ts
 src/models/ListProjects200ResponseAllOfItemsInner.ts
 src/models/ListSignals200Response.ts

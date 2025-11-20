@@ -52,6 +52,11 @@ export interface ListAgentsRequest {
     limit?: number;
 }
 
+export interface RotateAgentCertificateRequest {
+    workspaceId: string;
+    id: string;
+}
+
 export interface UpdateAgentRequest {
     workspaceId: string;
     id: string;
@@ -129,6 +134,23 @@ export interface AgentsApiInterface {
      * List agents
      */
     listAgents(workspaceId: string, page?: number, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200Response>;
+
+    /**
+     * Revokes the current certificate and issues a new one with a new private key
+     * @summary Rotate agent certificate
+     * @param {string} workspaceId 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AgentsApiInterface
+     */
+    rotateAgentCertificateRaw(requestParameters: RotateAgentCertificateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAgents200ResponseAllOfItemsInner>>;
+
+    /**
+     * Revokes the current certificate and issues a new one with a new private key
+     * Rotate agent certificate
+     */
+    rotateAgentCertificate(workspaceId: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200ResponseAllOfItemsInner>;
 
     /**
      * 
@@ -364,6 +386,61 @@ export class AgentsApi extends runtime.BaseAPI implements AgentsApiInterface {
      */
     async listAgents(workspaceId: string, page?: number, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200Response> {
         const response = await this.listAgentsRaw({ workspaceId: workspaceId, page: page, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Revokes the current certificate and issues a new one with a new private key
+     * Rotate agent certificate
+     */
+    async rotateAgentCertificateRaw(requestParameters: RotateAgentCertificateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAgents200ResponseAllOfItemsInner>> {
+        if (requestParameters['workspaceId'] == null) {
+            throw new runtime.RequiredError(
+                'workspaceId',
+                'Required parameter "workspaceId" was null or undefined when calling rotateAgentCertificate().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling rotateAgentCertificate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/workspaces/{workspace_id}/agents/{id}/rotate`;
+        urlPath = urlPath.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId'])));
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListAgents200ResponseAllOfItemsInnerFromJSON(jsonValue));
+    }
+
+    /**
+     * Revokes the current certificate and issues a new one with a new private key
+     * Rotate agent certificate
+     */
+    async rotateAgentCertificate(workspaceId: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200ResponseAllOfItemsInner> {
+        const response = await this.rotateAgentCertificateRaw({ workspaceId: workspaceId, id: id }, initOverrides);
         return await response.value();
     }
 

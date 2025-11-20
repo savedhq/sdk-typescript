@@ -24,19 +24,28 @@ export interface CreateSetupIntent200Response {
      * @type {string}
      * @memberof CreateSetupIntent200Response
      */
-    client_secret?: string;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof CreateSetupIntent200Response
      */
-    id?: string;
+    client_secret: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSetupIntent200Response
+     */
+    status: string;
 }
 
 /**
  * Check if a given object implements the CreateSetupIntent200Response interface.
  */
 export function instanceOfCreateSetupIntent200Response(value: object): value is CreateSetupIntent200Response {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('client_secret' in value) || value['client_secret'] === undefined) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
     return true;
 }
 
@@ -50,8 +59,9 @@ export function CreateSetupIntent200ResponseFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'client_secret': json['client_secret'] == null ? undefined : json['client_secret'],
-        'id': json['id'] == null ? undefined : json['id'],
+        'id': json['id'],
+        'client_secret': json['client_secret'],
+        'status': json['status'],
     };
 }
 
@@ -66,8 +76,9 @@ export function CreateSetupIntent200ResponseToJSONTyped(value?: CreateSetupInten
 
     return {
         
-        'client_secret': value['client_secret'],
         'id': value['id'],
+        'client_secret': value['client_secret'],
+        'status': value['status'],
     };
 }
 

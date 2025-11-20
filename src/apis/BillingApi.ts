@@ -21,7 +21,7 @@ import type {
   GetCurrentUsage200Response,
   GetSubscription200Response,
   ListInvoices200ResponseInner,
-  ListPaymentMethods200ResponseInner,
+  ListPaymentMethods200Response,
   ListWorkspaces401Response,
 } from '../models/index';
 import {
@@ -37,8 +37,8 @@ import {
     GetSubscription200ResponseToJSON,
     ListInvoices200ResponseInnerFromJSON,
     ListInvoices200ResponseInnerToJSON,
-    ListPaymentMethods200ResponseInnerFromJSON,
-    ListPaymentMethods200ResponseInnerToJSON,
+    ListPaymentMethods200ResponseFromJSON,
+    ListPaymentMethods200ResponseToJSON,
     ListWorkspaces401ResponseFromJSON,
     ListWorkspaces401ResponseToJSON,
 } from '../models/index';
@@ -190,12 +190,12 @@ export interface BillingApiInterface {
      * @throws {RequiredError}
      * @memberof BillingApiInterface
      */
-    listPaymentMethodsRaw(requestParameters: ListPaymentMethodsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ListPaymentMethods200ResponseInner>>>;
+    listPaymentMethodsRaw(requestParameters: ListPaymentMethodsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListPaymentMethods200Response>>;
 
     /**
      * List payment methods
      */
-    listPaymentMethods(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ListPaymentMethods200ResponseInner>>;
+    listPaymentMethods(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListPaymentMethods200Response>;
 
     /**
      * 
@@ -523,7 +523,7 @@ export class BillingApi extends runtime.BaseAPI implements BillingApiInterface {
     /**
      * List payment methods
      */
-    async listPaymentMethodsRaw(requestParameters: ListPaymentMethodsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ListPaymentMethods200ResponseInner>>> {
+    async listPaymentMethodsRaw(requestParameters: ListPaymentMethodsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListPaymentMethods200Response>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -554,13 +554,13 @@ export class BillingApi extends runtime.BaseAPI implements BillingApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ListPaymentMethods200ResponseInnerFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListPaymentMethods200ResponseFromJSON(jsonValue));
     }
 
     /**
      * List payment methods
      */
-    async listPaymentMethods(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ListPaymentMethods200ResponseInner>> {
+    async listPaymentMethods(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListPaymentMethods200Response> {
         const response = await this.listPaymentMethodsRaw({ id: id }, initOverrides);
         return await response.value();
     }

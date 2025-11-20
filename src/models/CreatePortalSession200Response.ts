@@ -24,13 +24,14 @@ export interface CreatePortalSession200Response {
      * @type {string}
      * @memberof CreatePortalSession200Response
      */
-    url?: string;
+    url: string;
 }
 
 /**
  * Check if a given object implements the CreatePortalSession200Response interface.
  */
 export function instanceOfCreatePortalSession200Response(value: object): value is CreatePortalSession200Response {
+    if (!('url' in value) || value['url'] === undefined) return false;
     return true;
 }
 
@@ -44,7 +45,7 @@ export function CreatePortalSession200ResponseFromJSONTyped(json: any, ignoreDis
     }
     return {
         
-        'url': json['url'] == null ? undefined : json['url'],
+        'url': json['url'],
     };
 }
 

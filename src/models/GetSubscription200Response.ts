@@ -20,29 +20,71 @@ import { mapValues } from '../runtime';
  */
 export interface GetSubscription200Response {
     /**
-     * 
+     * Internal subscription ID
      * @type {string}
      * @memberof GetSubscription200Response
      */
-    subscription_id?: string;
+    id: string;
     /**
-     * 
+     * Workspace ID
      * @type {string}
      * @memberof GetSubscription200Response
      */
-    status?: GetSubscription200ResponseStatusEnum;
+    workspace_id: string;
     /**
-     * 
+     * Stripe subscription ID
+     * @type {string}
+     * @memberof GetSubscription200Response
+     */
+    stripe_subscription_id: string;
+    /**
+     * Subscription status
+     * @type {string}
+     * @memberof GetSubscription200Response
+     */
+    status: GetSubscription200ResponseStatusEnum;
+    /**
+     * Current billing period start
      * @type {Date}
      * @memberof GetSubscription200Response
      */
-    current_period_start?: Date;
+    current_period_start: Date;
     /**
-     * 
+     * Current billing period end
      * @type {Date}
      * @memberof GetSubscription200Response
      */
-    current_period_end?: Date;
+    current_period_end: Date;
+    /**
+     * Whether subscription will cancel at end of period
+     * @type {boolean}
+     * @memberof GetSubscription200Response
+     */
+    cancel_at_period_end: boolean;
+    /**
+     * When subscription is scheduled to cancel
+     * @type {Date}
+     * @memberof GetSubscription200Response
+     */
+    cancel_at?: Date;
+    /**
+     * When subscription was canceled
+     * @type {Date}
+     * @memberof GetSubscription200Response
+     */
+    canceled_at?: Date;
+    /**
+     * When subscription was created
+     * @type {Date}
+     * @memberof GetSubscription200Response
+     */
+    created_at: Date;
+    /**
+     * When subscription was last updated
+     * @type {Date}
+     * @memberof GetSubscription200Response
+     */
+    updated_at: Date;
 }
 
 
@@ -53,7 +95,10 @@ export const GetSubscription200ResponseStatusEnum = {
     Active: 'active',
     PastDue: 'past_due',
     Canceled: 'canceled',
-    Incomplete: 'incomplete'
+    Incomplete: 'incomplete',
+    IncompleteExpired: 'incomplete_expired',
+    Trialing: 'trialing',
+    Unpaid: 'unpaid'
 } as const;
 export type GetSubscription200ResponseStatusEnum = typeof GetSubscription200ResponseStatusEnum[keyof typeof GetSubscription200ResponseStatusEnum];
 
@@ -62,6 +107,15 @@ export type GetSubscription200ResponseStatusEnum = typeof GetSubscription200Resp
  * Check if a given object implements the GetSubscription200Response interface.
  */
 export function instanceOfGetSubscription200Response(value: object): value is GetSubscription200Response {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('workspace_id' in value) || value['workspace_id'] === undefined) return false;
+    if (!('stripe_subscription_id' in value) || value['stripe_subscription_id'] === undefined) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('current_period_start' in value) || value['current_period_start'] === undefined) return false;
+    if (!('current_period_end' in value) || value['current_period_end'] === undefined) return false;
+    if (!('cancel_at_period_end' in value) || value['cancel_at_period_end'] === undefined) return false;
+    if (!('created_at' in value) || value['created_at'] === undefined) return false;
+    if (!('updated_at' in value) || value['updated_at'] === undefined) return false;
     return true;
 }
 
@@ -75,10 +129,17 @@ export function GetSubscription200ResponseFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'subscription_id': json['subscription_id'] == null ? undefined : json['subscription_id'],
-        'status': json['status'] == null ? undefined : json['status'],
-        'current_period_start': json['current_period_start'] == null ? undefined : (new Date(json['current_period_start'])),
-        'current_period_end': json['current_period_end'] == null ? undefined : (new Date(json['current_period_end'])),
+        'id': json['id'],
+        'workspace_id': json['workspace_id'],
+        'stripe_subscription_id': json['stripe_subscription_id'],
+        'status': json['status'],
+        'current_period_start': (new Date(json['current_period_start'])),
+        'current_period_end': (new Date(json['current_period_end'])),
+        'cancel_at_period_end': json['cancel_at_period_end'],
+        'cancel_at': json['cancel_at'] == null ? undefined : (new Date(json['cancel_at'])),
+        'canceled_at': json['canceled_at'] == null ? undefined : (new Date(json['canceled_at'])),
+        'created_at': (new Date(json['created_at'])),
+        'updated_at': (new Date(json['updated_at'])),
     };
 }
 
@@ -93,10 +154,17 @@ export function GetSubscription200ResponseToJSONTyped(value?: GetSubscription200
 
     return {
         
-        'subscription_id': value['subscription_id'],
+        'id': value['id'],
+        'workspace_id': value['workspace_id'],
+        'stripe_subscription_id': value['stripe_subscription_id'],
         'status': value['status'],
-        'current_period_start': value['current_period_start'] == null ? undefined : ((value['current_period_start']).toISOString()),
-        'current_period_end': value['current_period_end'] == null ? undefined : ((value['current_period_end']).toISOString()),
+        'current_period_start': ((value['current_period_start']).toISOString()),
+        'current_period_end': ((value['current_period_end']).toISOString()),
+        'cancel_at_period_end': value['cancel_at_period_end'],
+        'cancel_at': value['cancel_at'] == null ? undefined : ((value['cancel_at']).toISOString()),
+        'canceled_at': value['canceled_at'] == null ? undefined : ((value['canceled_at']).toISOString()),
+        'created_at': ((value['created_at']).toISOString()),
+        'updated_at': ((value['updated_at']).toISOString()),
     };
 }
 
