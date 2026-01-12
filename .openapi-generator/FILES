@@ -1,0 +1,15 @@
+.gitignore
+.npmignore
+.openapi-generator-ignore
+README.md
+package.json
+src/apis/WorkspacesApi.ts
+src/apis/index.ts
+src/index.ts
+src/models/CreateWorkspaceRequest.ts
+src/models/ListWorkspaces200ResponseInner.ts
+src/models/UpdateWorkspaceRequest.ts
+src/models/index.ts
+src/runtime.ts
+tsconfig.esm.json
+tsconfig.json
