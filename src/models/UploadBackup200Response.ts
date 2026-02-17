@@ -20,23 +20,25 @@ import { mapValues } from '../runtime';
  */
 export interface UploadBackup200Response {
     /**
-     * 
+     * Pre-signed URL for uploading the backup
      * @type {string}
      * @memberof UploadBackup200Response
      */
-    upload_url?: string;
+    upload_url: string;
     /**
-     * 
+     * When the upload URL expires
      * @type {Date}
      * @memberof UploadBackup200Response
      */
-    expires_at?: Date;
+    expires_at: Date;
 }
 
 /**
  * Check if a given object implements the UploadBackup200Response interface.
  */
 export function instanceOfUploadBackup200Response(value: object): value is UploadBackup200Response {
+    if (!('upload_url' in value) || value['upload_url'] === undefined) return false;
+    if (!('expires_at' in value) || value['expires_at'] === undefined) return false;
     return true;
 }
 
@@ -50,8 +52,8 @@ export function UploadBackup200ResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'upload_url': json['upload_url'] == null ? undefined : json['upload_url'],
-        'expires_at': json['expires_at'] == null ? undefined : (new Date(json['expires_at'])),
+        'upload_url': json['upload_url'],
+        'expires_at': (new Date(json['expires_at'])),
     };
 }
 
@@ -67,7 +69,7 @@ export function UploadBackup200ResponseToJSONTyped(value?: UploadBackup200Respon
     return {
         
         'upload_url': value['upload_url'],
-        'expires_at': value['expires_at'] == null ? undefined : ((value['expires_at']).toISOString()),
+        'expires_at': ((value['expires_at']).toISOString()),
     };
 }
 

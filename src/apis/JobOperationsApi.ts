@@ -17,7 +17,9 @@ import * as runtime from '../runtime';
 import type {
   ConfirmBackup200Response,
   ConfirmBackupRequest,
-  RequestBackup201Response,
+  GetBillingInfo404Response,
+  GetJobDetails200ResponseRecentBackupsInner,
+  RequestBackupRequest,
   UploadBackup200Response,
   UploadBackupRequest,
 } from '../models/index';
@@ -26,8 +28,12 @@ import {
     ConfirmBackup200ResponseToJSON,
     ConfirmBackupRequestFromJSON,
     ConfirmBackupRequestToJSON,
-    RequestBackup201ResponseFromJSON,
-    RequestBackup201ResponseToJSON,
+    GetBillingInfo404ResponseFromJSON,
+    GetBillingInfo404ResponseToJSON,
+    GetJobDetails200ResponseRecentBackupsInnerFromJSON,
+    GetJobDetails200ResponseRecentBackupsInnerToJSON,
+    RequestBackupRequestFromJSON,
+    RequestBackupRequestToJSON,
     UploadBackup200ResponseFromJSON,
     UploadBackup200ResponseToJSON,
     UploadBackupRequestFromJSON,
@@ -41,9 +47,10 @@ export interface ConfirmBackupOperationRequest {
     confirmBackupRequest: ConfirmBackupRequest;
 }
 
-export interface RequestBackupRequest {
+export interface RequestBackupOperationRequest {
     workspaceId: string;
     jobId: string;
+    requestBackupRequest?: RequestBackupRequest;
 }
 
 export interface UploadBackupOperationRequest {
@@ -83,16 +90,17 @@ export interface JobOperationsApiInterface {
      * @summary Request a backup
      * @param {string} workspaceId The unique identifier of the workspace.
      * @param {string} jobId The unique identifier of the job.
+     * @param {RequestBackupRequest} [requestBackupRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof JobOperationsApiInterface
      */
-    requestBackupRaw(requestParameters: RequestBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestBackup201Response>>;
+    requestBackupRaw(requestParameters: RequestBackupOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJobDetails200ResponseRecentBackupsInner>>;
 
     /**
      * Request a backup
      */
-    requestBackup(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestBackup201Response>;
+    requestBackup(workspaceId: string, jobId: string, requestBackupRequest?: RequestBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJobDetails200ResponseRecentBackupsInner>;
 
     /**
      * 
@@ -193,7 +201,7 @@ export class JobOperationsApi extends runtime.BaseAPI implements JobOperationsAp
     /**
      * Request a backup
      */
-    async requestBackupRaw(requestParameters: RequestBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestBackup201Response>> {
+    async requestBackupRaw(requestParameters: RequestBackupOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJobDetails200ResponseRecentBackupsInner>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -211,6 +219,8 @@ export class JobOperationsApi extends runtime.BaseAPI implements JobOperationsAp
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -230,16 +240,17 @@ export class JobOperationsApi extends runtime.BaseAPI implements JobOperationsAp
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: RequestBackupRequestToJSON(requestParameters['requestBackupRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => RequestBackup201ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetJobDetails200ResponseRecentBackupsInnerFromJSON(jsonValue));
     }
 
     /**
      * Request a backup
      */
-    async requestBackup(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestBackup201Response> {
-        const response = await this.requestBackupRaw({ workspaceId: workspaceId, jobId: jobId }, initOverrides);
+    async requestBackup(workspaceId: string, jobId: string, requestBackupRequest?: RequestBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJobDetails200ResponseRecentBackupsInner> {
+        const response = await this.requestBackupRaw({ workspaceId: workspaceId, jobId: jobId, requestBackupRequest: requestBackupRequest }, initOverrides);
         return await response.value();
     }
 

@@ -15,31 +15,40 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateAgentJob201Response,
   CreateAgentJobRequest,
-  CreateManualJob201Response,
   CreateManualJobRequest,
-  CreateWorkerJob201Response,
   CreateWorkerJobRequest,
+  GetBillingInfo404Response,
+  GetJobDetails200Response,
+  GetJobHistory200ResponseInner,
   ListJobs200ResponseInner,
+  ListJobs200ResponseInnerOneOf,
+  ListJobs200ResponseInnerOneOf1,
+  ListJobs200ResponseInnerOneOf2,
   TriggerJob202Response,
   UpdateJobRequest,
 } from '../models/index';
 import {
-    CreateAgentJob201ResponseFromJSON,
-    CreateAgentJob201ResponseToJSON,
     CreateAgentJobRequestFromJSON,
     CreateAgentJobRequestToJSON,
-    CreateManualJob201ResponseFromJSON,
-    CreateManualJob201ResponseToJSON,
     CreateManualJobRequestFromJSON,
     CreateManualJobRequestToJSON,
-    CreateWorkerJob201ResponseFromJSON,
-    CreateWorkerJob201ResponseToJSON,
     CreateWorkerJobRequestFromJSON,
     CreateWorkerJobRequestToJSON,
+    GetBillingInfo404ResponseFromJSON,
+    GetBillingInfo404ResponseToJSON,
+    GetJobDetails200ResponseFromJSON,
+    GetJobDetails200ResponseToJSON,
+    GetJobHistory200ResponseInnerFromJSON,
+    GetJobHistory200ResponseInnerToJSON,
     ListJobs200ResponseInnerFromJSON,
     ListJobs200ResponseInnerToJSON,
+    ListJobs200ResponseInnerOneOfFromJSON,
+    ListJobs200ResponseInnerOneOfToJSON,
+    ListJobs200ResponseInnerOneOf1FromJSON,
+    ListJobs200ResponseInnerOneOf1ToJSON,
+    ListJobs200ResponseInnerOneOf2FromJSON,
+    ListJobs200ResponseInnerOneOf2ToJSON,
     TriggerJob202ResponseFromJSON,
     TriggerJob202ResponseToJSON,
     UpdateJobRequestFromJSON,
@@ -69,6 +78,18 @@ export interface DeleteJobRequest {
 export interface GetJobRequest {
     workspaceId: string;
     jobId: string;
+}
+
+export interface GetJobDetailsRequest {
+    workspaceId: string;
+    jobId: string;
+}
+
+export interface GetJobHistoryRequest {
+    workspaceId: string;
+    jobId: string;
+    limit?: number;
+    offset?: number;
 }
 
 export interface ListJobsRequest {
@@ -104,12 +125,12 @@ export interface JobsApiInterface {
      * @throws {RequiredError}
      * @memberof JobsApiInterface
      */
-    createAgentJobRaw(requestParameters: CreateAgentJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateAgentJob201Response>>;
+    createAgentJobRaw(requestParameters: CreateAgentJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListJobs200ResponseInnerOneOf1>>;
 
     /**
      * Create an agent job
      */
-    createAgentJob(workspaceId: string, createAgentJobRequest: CreateAgentJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateAgentJob201Response>;
+    createAgentJob(workspaceId: string, createAgentJobRequest: CreateAgentJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInnerOneOf1>;
 
     /**
      * 
@@ -120,12 +141,12 @@ export interface JobsApiInterface {
      * @throws {RequiredError}
      * @memberof JobsApiInterface
      */
-    createManualJobRaw(requestParameters: CreateManualJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateManualJob201Response>>;
+    createManualJobRaw(requestParameters: CreateManualJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListJobs200ResponseInnerOneOf2>>;
 
     /**
      * Create a manual job
      */
-    createManualJob(workspaceId: string, createManualJobRequest: CreateManualJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateManualJob201Response>;
+    createManualJob(workspaceId: string, createManualJobRequest: CreateManualJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInnerOneOf2>;
 
     /**
      * 
@@ -136,12 +157,12 @@ export interface JobsApiInterface {
      * @throws {RequiredError}
      * @memberof JobsApiInterface
      */
-    createWorkerJobRaw(requestParameters: CreateWorkerJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateWorkerJob201Response>>;
+    createWorkerJobRaw(requestParameters: CreateWorkerJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListJobs200ResponseInnerOneOf>>;
 
     /**
      * Create a worker job
      */
-    createWorkerJob(workspaceId: string, createWorkerJobRequest: CreateWorkerJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateWorkerJob201Response>;
+    createWorkerJob(workspaceId: string, createWorkerJobRequest: CreateWorkerJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInnerOneOf>;
 
     /**
      * 
@@ -174,6 +195,40 @@ export interface JobsApiInterface {
      * Get a job
      */
     getJob(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInner>;
+
+    /**
+     * 
+     * @summary Get job details
+     * @param {string} workspaceId The unique identifier of the workspace.
+     * @param {string} jobId The unique identifier of the job.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof JobsApiInterface
+     */
+    getJobDetailsRaw(requestParameters: GetJobDetailsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJobDetails200Response>>;
+
+    /**
+     * Get job details
+     */
+    getJobDetails(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJobDetails200Response>;
+
+    /**
+     * 
+     * @summary Get job history
+     * @param {string} workspaceId The unique identifier of the workspace.
+     * @param {string} jobId The unique identifier of the job.
+     * @param {number} [limit] The number of items to return.
+     * @param {number} [offset] The number of items to skip.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof JobsApiInterface
+     */
+    getJobHistoryRaw(requestParameters: GetJobHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetJobHistory200ResponseInner>>>;
+
+    /**
+     * Get job history
+     */
+    getJobHistory(workspaceId: string, jobId: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetJobHistory200ResponseInner>>;
 
     /**
      * 
@@ -235,7 +290,7 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
     /**
      * Create an agent job
      */
-    async createAgentJobRaw(requestParameters: CreateAgentJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateAgentJob201Response>> {
+    async createAgentJobRaw(requestParameters: CreateAgentJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListJobs200ResponseInnerOneOf1>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -276,13 +331,13 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
             body: CreateAgentJobRequestToJSON(requestParameters['createAgentJobRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CreateAgentJob201ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListJobs200ResponseInnerOneOf1FromJSON(jsonValue));
     }
 
     /**
      * Create an agent job
      */
-    async createAgentJob(workspaceId: string, createAgentJobRequest: CreateAgentJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateAgentJob201Response> {
+    async createAgentJob(workspaceId: string, createAgentJobRequest: CreateAgentJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInnerOneOf1> {
         const response = await this.createAgentJobRaw({ workspaceId: workspaceId, createAgentJobRequest: createAgentJobRequest }, initOverrides);
         return await response.value();
     }
@@ -290,7 +345,7 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
     /**
      * Create a manual job
      */
-    async createManualJobRaw(requestParameters: CreateManualJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateManualJob201Response>> {
+    async createManualJobRaw(requestParameters: CreateManualJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListJobs200ResponseInnerOneOf2>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -331,13 +386,13 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
             body: CreateManualJobRequestToJSON(requestParameters['createManualJobRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CreateManualJob201ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListJobs200ResponseInnerOneOf2FromJSON(jsonValue));
     }
 
     /**
      * Create a manual job
      */
-    async createManualJob(workspaceId: string, createManualJobRequest: CreateManualJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateManualJob201Response> {
+    async createManualJob(workspaceId: string, createManualJobRequest: CreateManualJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInnerOneOf2> {
         const response = await this.createManualJobRaw({ workspaceId: workspaceId, createManualJobRequest: createManualJobRequest }, initOverrides);
         return await response.value();
     }
@@ -345,7 +400,7 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
     /**
      * Create a worker job
      */
-    async createWorkerJobRaw(requestParameters: CreateWorkerJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateWorkerJob201Response>> {
+    async createWorkerJobRaw(requestParameters: CreateWorkerJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListJobs200ResponseInnerOneOf>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -386,13 +441,13 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
             body: CreateWorkerJobRequestToJSON(requestParameters['createWorkerJobRequest']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CreateWorkerJob201ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListJobs200ResponseInnerOneOfFromJSON(jsonValue));
     }
 
     /**
      * Create a worker job
      */
-    async createWorkerJob(workspaceId: string, createWorkerJobRequest: CreateWorkerJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateWorkerJob201Response> {
+    async createWorkerJob(workspaceId: string, createWorkerJobRequest: CreateWorkerJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInnerOneOf> {
         const response = await this.createWorkerJobRaw({ workspaceId: workspaceId, createWorkerJobRequest: createWorkerJobRequest }, initOverrides);
         return await response.value();
     }
@@ -499,6 +554,120 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
      */
     async getJob(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInner> {
         const response = await this.getJobRaw({ workspaceId: workspaceId, jobId: jobId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get job details
+     */
+    async getJobDetailsRaw(requestParameters: GetJobDetailsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJobDetails200Response>> {
+        if (requestParameters['workspaceId'] == null) {
+            throw new runtime.RequiredError(
+                'workspaceId',
+                'Required parameter "workspaceId" was null or undefined when calling getJobDetails().'
+            );
+        }
+
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling getJobDetails().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/workspaces/{workspace_id}/jobs/{job_id}/details`;
+        urlPath = urlPath.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId'])));
+        urlPath = urlPath.replace(`{${"job_id"}}`, encodeURIComponent(String(requestParameters['jobId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetJobDetails200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get job details
+     */
+    async getJobDetails(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJobDetails200Response> {
+        const response = await this.getJobDetailsRaw({ workspaceId: workspaceId, jobId: jobId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get job history
+     */
+    async getJobHistoryRaw(requestParameters: GetJobHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetJobHistory200ResponseInner>>> {
+        if (requestParameters['workspaceId'] == null) {
+            throw new runtime.RequiredError(
+                'workspaceId',
+                'Required parameter "workspaceId" was null or undefined when calling getJobHistory().'
+            );
+        }
+
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling getJobHistory().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/workspaces/{workspace_id}/jobs/{job_id}/history`;
+        urlPath = urlPath.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId'])));
+        urlPath = urlPath.replace(`{${"job_id"}}`, encodeURIComponent(String(requestParameters['jobId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GetJobHistory200ResponseInnerFromJSON));
+    }
+
+    /**
+     * Get job history
+     */
+    async getJobHistory(workspaceId: string, jobId: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetJobHistory200ResponseInner>> {
+        const response = await this.getJobHistoryRaw({ workspaceId: workspaceId, jobId: jobId, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 

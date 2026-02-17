@@ -24,19 +24,35 @@ export interface UploadBackupRequest {
      * @type {string}
      * @memberof UploadBackupRequest
      */
-    name?: string;
+    name: string;
     /**
      * 
      * @type {number}
      * @memberof UploadBackupRequest
      */
-    size?: number;
+    size: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadBackupRequest
+     */
+    checksum: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadBackupRequest
+     */
+    mime_type: string;
 }
 
 /**
  * Check if a given object implements the UploadBackupRequest interface.
  */
 export function instanceOfUploadBackupRequest(value: object): value is UploadBackupRequest {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('size' in value) || value['size'] === undefined) return false;
+    if (!('checksum' in value) || value['checksum'] === undefined) return false;
+    if (!('mime_type' in value) || value['mime_type'] === undefined) return false;
     return true;
 }
 
@@ -50,8 +66,10 @@ export function UploadBackupRequestFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'name': json['name'] == null ? undefined : json['name'],
-        'size': json['size'] == null ? undefined : json['size'],
+        'name': json['name'],
+        'size': json['size'],
+        'checksum': json['checksum'],
+        'mime_type': json['mime_type'],
     };
 }
 
@@ -68,6 +86,8 @@ export function UploadBackupRequestToJSONTyped(value?: UploadBackupRequest | nul
         
         'name': value['name'],
         'size': value['size'],
+        'checksum': value['checksum'],
+        'mime_type': value['mime_type'],
     };
 }
 

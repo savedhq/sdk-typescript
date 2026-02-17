@@ -16,12 +16,18 @@
 import * as runtime from '../runtime';
 import type {
   CreateAgentRequest,
+  GetAgentConfigHub200Response,
+  GetBillingInfo404Response,
   ListAgents200ResponseInner,
   UpdateAgentRequest,
 } from '../models/index';
 import {
     CreateAgentRequestFromJSON,
     CreateAgentRequestToJSON,
+    GetAgentConfigHub200ResponseFromJSON,
+    GetAgentConfigHub200ResponseToJSON,
+    GetBillingInfo404ResponseFromJSON,
+    GetBillingInfo404ResponseToJSON,
     ListAgents200ResponseInnerFromJSON,
     ListAgents200ResponseInnerToJSON,
     UpdateAgentRequestFromJSON,
@@ -116,6 +122,21 @@ export interface AgentsApiInterface {
     getAgent(workspaceId: string, agentId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200ResponseInner>;
 
     /**
+     * Returns Temporal hub config for the authenticated agent.
+     * @summary Get agent hub configuration
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AgentsApiInterface
+     */
+    getAgentConfigHubRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetAgentConfigHub200Response>>;
+
+    /**
+     * Returns Temporal hub config for the authenticated agent.
+     * Get agent hub configuration
+     */
+    getAgentConfigHub(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetAgentConfigHub200Response>;
+
+    /**
      * 
      * @summary List agents for a workspace
      * @param {string} workspaceId The unique identifier of the workspace.
@@ -141,12 +162,12 @@ export interface AgentsApiInterface {
      * @throws {RequiredError}
      * @memberof AgentsApiInterface
      */
-    resetAgentCredentialsRaw(requestParameters: ResetAgentCredentialsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: any; }>>;
+    resetAgentCredentialsRaw(requestParameters: ResetAgentCredentialsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAgents200ResponseInner>>;
 
     /**
      * Reset agent credentials
      */
-    resetAgentCredentials(workspaceId: string, agentId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: any; }>;
+    resetAgentCredentials(workspaceId: string, agentId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200ResponseInner>;
 
     /**
      * 
@@ -333,6 +354,45 @@ export class AgentsApi extends runtime.BaseAPI implements AgentsApiInterface {
     }
 
     /**
+     * Returns Temporal hub config for the authenticated agent.
+     * Get agent hub configuration
+     */
+    async getAgentConfigHubRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetAgentConfigHub200Response>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/agents/config/hub`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetAgentConfigHub200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns Temporal hub config for the authenticated agent.
+     * Get agent hub configuration
+     */
+    async getAgentConfigHub(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetAgentConfigHub200Response> {
+        const response = await this.getAgentConfigHubRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * List agents for a workspace
      */
     async listAgentsRaw(requestParameters: ListAgentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ListAgents200ResponseInner>>> {
@@ -388,7 +448,7 @@ export class AgentsApi extends runtime.BaseAPI implements AgentsApiInterface {
     /**
      * Reset agent credentials
      */
-    async resetAgentCredentialsRaw(requestParameters: ResetAgentCredentialsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: any; }>> {
+    async resetAgentCredentialsRaw(requestParameters: ResetAgentCredentialsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAgents200ResponseInner>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -427,13 +487,13 @@ export class AgentsApi extends runtime.BaseAPI implements AgentsApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse<any>(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListAgents200ResponseInnerFromJSON(jsonValue));
     }
 
     /**
      * Reset agent credentials
      */
-    async resetAgentCredentials(workspaceId: string, agentId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: any; }> {
+    async resetAgentCredentials(workspaceId: string, agentId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAgents200ResponseInner> {
         const response = await this.resetAgentCredentialsRaw({ workspaceId: workspaceId, agentId: agentId }, initOverrides);
         return await response.value();
     }

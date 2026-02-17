@@ -16,12 +16,18 @@
 import * as runtime from '../runtime';
 import type {
   CreateWorkspaceRequest,
+  GetBillingInfo404Response,
+  GetWorkspaceInfo200Response,
   ListWorkspaces200ResponseInner,
   UpdateWorkspaceRequest,
 } from '../models/index';
 import {
     CreateWorkspaceRequestFromJSON,
     CreateWorkspaceRequestToJSON,
+    GetBillingInfo404ResponseFromJSON,
+    GetBillingInfo404ResponseToJSON,
+    GetWorkspaceInfo200ResponseFromJSON,
+    GetWorkspaceInfo200ResponseToJSON,
     ListWorkspaces200ResponseInnerFromJSON,
     ListWorkspaces200ResponseInnerToJSON,
     UpdateWorkspaceRequestFromJSON,
@@ -107,20 +113,20 @@ export interface WorkspacesApiInterface {
     getWorkspace(workspaceId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListWorkspaces200ResponseInner>;
 
     /**
-     * This endpoint is currently unimplemented.
-     * @summary Get workspace info
+     * Returns dashboard widgets including job stats, backup stats, agent stats, billing, storage, trends, and health status.
+     * @summary Get workspace dashboard info
      * @param {string} workspaceId The unique identifier of the workspace.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WorkspacesApiInterface
      */
-    getWorkspaceInfoRaw(requestParameters: GetWorkspaceInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    getWorkspaceInfoRaw(requestParameters: GetWorkspaceInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetWorkspaceInfo200Response>>;
 
     /**
-     * This endpoint is currently unimplemented.
-     * Get workspace info
+     * Returns dashboard widgets including job stats, backup stats, agent stats, billing, storage, trends, and health status.
+     * Get workspace dashboard info
      */
-    getWorkspaceInfo(workspaceId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    getWorkspaceInfo(workspaceId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetWorkspaceInfo200Response>;
 
     /**
      * 
@@ -298,10 +304,10 @@ export class WorkspacesApi extends runtime.BaseAPI implements WorkspacesApiInter
     }
 
     /**
-     * This endpoint is currently unimplemented.
-     * Get workspace info
+     * Returns dashboard widgets including job stats, backup stats, agent stats, billing, storage, trends, and health status.
+     * Get workspace dashboard info
      */
-    async getWorkspaceInfoRaw(requestParameters: GetWorkspaceInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getWorkspaceInfoRaw(requestParameters: GetWorkspaceInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetWorkspaceInfo200Response>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -332,15 +338,16 @@ export class WorkspacesApi extends runtime.BaseAPI implements WorkspacesApiInter
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetWorkspaceInfo200ResponseFromJSON(jsonValue));
     }
 
     /**
-     * This endpoint is currently unimplemented.
-     * Get workspace info
+     * Returns dashboard widgets including job stats, backup stats, agent stats, billing, storage, trends, and health status.
+     * Get workspace dashboard info
      */
-    async getWorkspaceInfo(workspaceId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.getWorkspaceInfoRaw({ workspaceId: workspaceId }, initOverrides);
+    async getWorkspaceInfo(workspaceId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetWorkspaceInfo200Response> {
+        const response = await this.getWorkspaceInfoRaw({ workspaceId: workspaceId }, initOverrides);
+        return await response.value();
     }
 
     /**

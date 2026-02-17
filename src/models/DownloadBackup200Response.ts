@@ -20,23 +20,49 @@ import { mapValues } from '../runtime';
  */
 export interface DownloadBackup200Response {
     /**
-     * 
+     * Pre-signed URL for downloading the backup
      * @type {string}
      * @memberof DownloadBackup200Response
      */
-    url?: string;
+    download_url: string;
     /**
-     * 
+     * When the download URL expires
      * @type {Date}
      * @memberof DownloadBackup200Response
      */
-    expires_at?: Date;
+    expires_at: Date;
+    /**
+     * Original filename of the backup
+     * @type {string}
+     * @memberof DownloadBackup200Response
+     */
+    filename?: string;
+    /**
+     * Size of the backup file in bytes
+     * @type {number}
+     * @memberof DownloadBackup200Response
+     */
+    size?: number;
+    /**
+     * curl command for files larger than 5GB
+     * @type {string}
+     * @memberof DownloadBackup200Response
+     */
+    download_command?: string;
+    /**
+     * Warning message for large files
+     * @type {string}
+     * @memberof DownloadBackup200Response
+     */
+    warning?: string;
 }
 
 /**
  * Check if a given object implements the DownloadBackup200Response interface.
  */
 export function instanceOfDownloadBackup200Response(value: object): value is DownloadBackup200Response {
+    if (!('download_url' in value) || value['download_url'] === undefined) return false;
+    if (!('expires_at' in value) || value['expires_at'] === undefined) return false;
     return true;
 }
 
@@ -50,8 +76,12 @@ export function DownloadBackup200ResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'url': json['url'] == null ? undefined : json['url'],
-        'expires_at': json['expires_at'] == null ? undefined : (new Date(json['expires_at'])),
+        'download_url': json['download_url'],
+        'expires_at': (new Date(json['expires_at'])),
+        'filename': json['filename'] == null ? undefined : json['filename'],
+        'size': json['size'] == null ? undefined : json['size'],
+        'download_command': json['download_command'] == null ? undefined : json['download_command'],
+        'warning': json['warning'] == null ? undefined : json['warning'],
     };
 }
 
@@ -66,8 +96,12 @@ export function DownloadBackup200ResponseToJSONTyped(value?: DownloadBackup200Re
 
     return {
         
-        'url': value['url'],
-        'expires_at': value['expires_at'] == null ? undefined : ((value['expires_at']).toISOString()),
+        'download_url': value['download_url'],
+        'expires_at': ((value['expires_at']).toISOString()),
+        'filename': value['filename'],
+        'size': value['size'],
+        'download_command': value['download_command'],
+        'warning': value['warning'],
     };
 }
 

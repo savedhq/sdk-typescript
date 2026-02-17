@@ -75,8 +75,15 @@ export interface CreateAgentJobRequest {
  */
 export const CreateAgentJobRequestProviderEnum = {
     Http: 'http',
-    MySql: 'MySQL',
-    PostgreSql: 'PostgreSQL'
+    Ftp: 'ftp',
+    Webdav: 'webdav',
+    Git: 'git',
+    AwsS3: 'aws.s3',
+    AwsDynamodb: 'aws.dynamodb',
+    Mysql: 'mysql',
+    Postgres: 'postgres',
+    Mssql: 'mssql',
+    Redis: 'redis'
 } as const;
 export type CreateAgentJobRequestProviderEnum = typeof CreateAgentJobRequestProviderEnum[keyof typeof CreateAgentJobRequestProviderEnum];
 

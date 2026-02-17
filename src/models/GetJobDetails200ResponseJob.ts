@@ -35,17 +35,17 @@ import {
 } from './ListJobs200ResponseInnerOneOf2';
 
 /**
- * @type ListJobs200ResponseInner
- * 
+ * @type GetJobDetails200ResponseJob
+ * The job object (type varies based on job type)
  * @export
  */
-export type ListJobs200ResponseInner = ListJobs200ResponseInnerOneOf | ListJobs200ResponseInnerOneOf1 | ListJobs200ResponseInnerOneOf2;
+export type GetJobDetails200ResponseJob = ListJobs200ResponseInnerOneOf | ListJobs200ResponseInnerOneOf1 | ListJobs200ResponseInnerOneOf2;
 
-export function ListJobs200ResponseInnerFromJSON(json: any): ListJobs200ResponseInner {
-    return ListJobs200ResponseInnerFromJSONTyped(json, false);
+export function GetJobDetails200ResponseJobFromJSON(json: any): GetJobDetails200ResponseJob {
+    return GetJobDetails200ResponseJobFromJSONTyped(json, false);
 }
 
-export function ListJobs200ResponseInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): ListJobs200ResponseInner {
+export function GetJobDetails200ResponseJobFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetJobDetails200ResponseJob {
     if (json == null) {
         return json;
     }
@@ -65,11 +65,11 @@ export function ListJobs200ResponseInnerFromJSONTyped(json: any, ignoreDiscrimin
     return {} as any;
 }
 
-export function ListJobs200ResponseInnerToJSON(json: any): any {
-    return ListJobs200ResponseInnerToJSONTyped(json, false);
+export function GetJobDetails200ResponseJobToJSON(json: any): any {
+    return GetJobDetails200ResponseJobToJSONTyped(json, false);
 }
 
-export function ListJobs200ResponseInnerToJSONTyped(value?: ListJobs200ResponseInner | null, ignoreDiscriminator: boolean = false): any {
+export function GetJobDetails200ResponseJobToJSONTyped(value?: GetJobDetails200ResponseJob | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

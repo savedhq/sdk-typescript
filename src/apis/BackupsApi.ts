@@ -16,13 +16,16 @@
 import * as runtime from '../runtime';
 import type {
   DownloadBackup200Response,
-  RequestBackup201Response,
+  GetBillingInfo404Response,
+  GetJobDetails200ResponseRecentBackupsInner,
 } from '../models/index';
 import {
     DownloadBackup200ResponseFromJSON,
     DownloadBackup200ResponseToJSON,
-    RequestBackup201ResponseFromJSON,
-    RequestBackup201ResponseToJSON,
+    GetBillingInfo404ResponseFromJSON,
+    GetBillingInfo404ResponseToJSON,
+    GetJobDetails200ResponseRecentBackupsInnerFromJSON,
+    GetJobDetails200ResponseRecentBackupsInnerToJSON,
 } from '../models/index';
 
 export interface DeleteBackupRequest {
@@ -101,12 +104,12 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    getBackupRaw(requestParameters: GetBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestBackup201Response>>;
+    getBackupRaw(requestParameters: GetBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJobDetails200ResponseRecentBackupsInner>>;
 
     /**
      * Get a backup
      */
-    getBackup(workspaceId: string, jobId: string, backupId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestBackup201Response>;
+    getBackup(workspaceId: string, jobId: string, backupId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJobDetails200ResponseRecentBackupsInner>;
 
     /**
      * 
@@ -119,12 +122,12 @@ export interface BackupsApiInterface {
      * @throws {RequiredError}
      * @memberof BackupsApiInterface
      */
-    listBackupsRaw(requestParameters: ListBackupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<RequestBackup201Response>>>;
+    listBackupsRaw(requestParameters: ListBackupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetJobDetails200ResponseRecentBackupsInner>>>;
 
     /**
      * List backups for a job
      */
-    listBackups(workspaceId: string, jobId: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RequestBackup201Response>>;
+    listBackups(workspaceId: string, jobId: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetJobDetails200ResponseRecentBackupsInner>>;
 
 }
 
@@ -257,7 +260,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
     /**
      * Get a backup
      */
-    async getBackupRaw(requestParameters: GetBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestBackup201Response>> {
+    async getBackupRaw(requestParameters: GetBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJobDetails200ResponseRecentBackupsInner>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -304,13 +307,13 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => RequestBackup201ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetJobDetails200ResponseRecentBackupsInnerFromJSON(jsonValue));
     }
 
     /**
      * Get a backup
      */
-    async getBackup(workspaceId: string, jobId: string, backupId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestBackup201Response> {
+    async getBackup(workspaceId: string, jobId: string, backupId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJobDetails200ResponseRecentBackupsInner> {
         const response = await this.getBackupRaw({ workspaceId: workspaceId, jobId: jobId, backupId: backupId }, initOverrides);
         return await response.value();
     }
@@ -318,7 +321,7 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
     /**
      * List backups for a job
      */
-    async listBackupsRaw(requestParameters: ListBackupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<RequestBackup201Response>>> {
+    async listBackupsRaw(requestParameters: ListBackupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetJobDetails200ResponseRecentBackupsInner>>> {
         if (requestParameters['workspaceId'] == null) {
             throw new runtime.RequiredError(
                 'workspaceId',
@@ -365,13 +368,13 @@ export class BackupsApi extends runtime.BaseAPI implements BackupsApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RequestBackup201ResponseFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GetJobDetails200ResponseRecentBackupsInnerFromJSON));
     }
 
     /**
      * List backups for a job
      */
-    async listBackups(workspaceId: string, jobId: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RequestBackup201Response>> {
+    async listBackups(workspaceId: string, jobId: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetJobDetails200ResponseRecentBackupsInner>> {
         const response = await this.listBackupsRaw({ workspaceId: workspaceId, jobId: jobId, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }

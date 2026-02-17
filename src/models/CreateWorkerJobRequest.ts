@@ -75,8 +75,15 @@ export interface CreateWorkerJobRequest {
  */
 export const CreateWorkerJobRequestProviderEnum = {
     Http: 'http',
-    MySql: 'MySQL',
-    PostgreSql: 'PostgreSQL'
+    Ftp: 'ftp',
+    Webdav: 'webdav',
+    Git: 'git',
+    AwsS3: 'aws.s3',
+    AwsDynamodb: 'aws.dynamodb',
+    Mysql: 'mysql',
+    Postgres: 'postgres',
+    Mssql: 'mssql',
+    Redis: 'redis'
 } as const;
 export type CreateWorkerJobRequestProviderEnum = typeof CreateWorkerJobRequestProviderEnum[keyof typeof CreateWorkerJobRequestProviderEnum];
 
