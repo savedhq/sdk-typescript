@@ -15,12 +15,12 @@
 
 import * as runtime from '../runtime';
 import type {
-  GetBillingInfo404Response,
+  GetBillingInfo401Response,
   GetClientConfigAuth200Response,
 } from '../models/index';
 import {
-    GetBillingInfo404ResponseFromJSON,
-    GetBillingInfo404ResponseToJSON,
+    GetBillingInfo401ResponseFromJSON,
+    GetBillingInfo401ResponseToJSON,
     GetClientConfigAuth200ResponseFromJSON,
     GetClientConfigAuth200ResponseToJSON,
 } from '../models/index';

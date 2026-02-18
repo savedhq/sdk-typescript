@@ -17,7 +17,7 @@ import * as runtime from '../runtime';
 import type {
   CreateAgentRequest,
   GetAgentConfigHub200Response,
-  GetBillingInfo404Response,
+  GetBillingInfo401Response,
   ListAgents200ResponseInner,
   UpdateAgentRequest,
 } from '../models/index';
@@ -26,8 +26,8 @@ import {
     CreateAgentRequestToJSON,
     GetAgentConfigHub200ResponseFromJSON,
     GetAgentConfigHub200ResponseToJSON,
-    GetBillingInfo404ResponseFromJSON,
-    GetBillingInfo404ResponseToJSON,
+    GetBillingInfo401ResponseFromJSON,
+    GetBillingInfo401ResponseToJSON,
     ListAgents200ResponseInnerFromJSON,
     ListAgents200ResponseInnerToJSON,
     UpdateAgentRequestFromJSON,

@@ -29,8 +29,8 @@ src/models/FieldError.ts
 src/models/GetAgentConfigHub200Response.ts
 src/models/GetAgentConfigHub200ResponseTls.ts
 src/models/GetBillingInfo200Response.ts
-src/models/GetBillingInfo404Response.ts
-src/models/GetBillingInfo404ResponseDetailsInner.ts
+src/models/GetBillingInfo401Response.ts
+src/models/GetBillingInfo401ResponseDetailsInner.ts
 src/models/GetClientConfigAuth200Response.ts
 src/models/GetJobDetails200Response.ts
 src/models/GetJobDetails200ResponseJob.ts

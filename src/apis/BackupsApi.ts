@@ -16,14 +16,14 @@
 import * as runtime from '../runtime';
 import type {
   DownloadBackup200Response,
-  GetBillingInfo404Response,
+  GetBillingInfo401Response,
   GetJobDetails200ResponseRecentBackupsInner,
 } from '../models/index';
 import {
     DownloadBackup200ResponseFromJSON,
     DownloadBackup200ResponseToJSON,
-    GetBillingInfo404ResponseFromJSON,
-    GetBillingInfo404ResponseToJSON,
+    GetBillingInfo401ResponseFromJSON,
+    GetBillingInfo401ResponseToJSON,
     GetJobDetails200ResponseRecentBackupsInnerFromJSON,
     GetJobDetails200ResponseRecentBackupsInnerToJSON,
 } from '../models/index';

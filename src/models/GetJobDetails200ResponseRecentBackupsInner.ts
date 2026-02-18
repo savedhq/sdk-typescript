@@ -48,13 +48,13 @@ export interface GetJobDetails200ResponseRecentBackupsInner {
      * @type {Date}
      * @memberof GetJobDetails200ResponseRecentBackupsInner
      */
-    started_at?: Date;
+    started_at?: Date | null;
     /**
      * 
      * @type {Date}
      * @memberof GetJobDetails200ResponseRecentBackupsInner
      */
-    completed_at?: Date;
+    completed_at?: Date | null;
     /**
      * 
      * @type {Date}
@@ -131,8 +131,8 @@ export function GetJobDetails200ResponseRecentBackupsInnerToJSONTyped(value?: Ge
         'workspace_id': value['workspace_id'],
         'job_id': value['job_id'],
         'status': value['status'],
-        'started_at': value['started_at'] == null ? undefined : ((value['started_at']).toISOString()),
-        'completed_at': value['completed_at'] == null ? undefined : ((value['completed_at']).toISOString()),
+        'started_at': value['started_at'] === null ? null : ((value['started_at'] as any)?.toISOString()),
+        'completed_at': value['completed_at'] === null ? null : ((value['completed_at'] as any)?.toISOString()),
         'created_at': ((value['created_at']).toISOString()),
         'updated_at': ((value['updated_at']).toISOString()),
     };

@@ -33,12 +33,18 @@ export interface ListCreditTransactions200ResponseTransactionsInner {
     workspace_id?: string;
     /**
      * 
+     * @type {string}
+     * @memberof ListCreditTransactions200ResponseTransactionsInner
+     */
+    transaction_type?: ListCreditTransactions200ResponseTransactionsInnerTransactionTypeEnum;
+    /**
+     * Amount in cents
      * @type {number}
      * @memberof ListCreditTransactions200ResponseTransactionsInner
      */
     amount?: number;
     /**
-     * 
+     * Deprecated - always 0
      * @type {number}
      * @memberof ListCreditTransactions200ResponseTransactionsInner
      */
@@ -51,10 +57,10 @@ export interface ListCreditTransactions200ResponseTransactionsInner {
     description?: string;
     /**
      * 
-     * @type {string}
+     * @type {{ [key: string]: any; }}
      * @memberof ListCreditTransactions200ResponseTransactionsInner
      */
-    type?: string;
+    metadata?: { [key: string]: any; };
     /**
      * 
      * @type {Date}
@@ -62,6 +68,19 @@ export interface ListCreditTransactions200ResponseTransactionsInner {
      */
     created_at?: Date;
 }
+
+
+/**
+ * @export
+ */
+export const ListCreditTransactions200ResponseTransactionsInnerTransactionTypeEnum = {
+    Purchase: 'purchase',
+    Deduction: 'deduction',
+    Refund: 'refund',
+    Bonus: 'bonus'
+} as const;
+export type ListCreditTransactions200ResponseTransactionsInnerTransactionTypeEnum = typeof ListCreditTransactions200ResponseTransactionsInnerTransactionTypeEnum[keyof typeof ListCreditTransactions200ResponseTransactionsInnerTransactionTypeEnum];
+
 
 /**
  * Check if a given object implements the ListCreditTransactions200ResponseTransactionsInner interface.
@@ -82,10 +101,11 @@ export function ListCreditTransactions200ResponseTransactionsInnerFromJSONTyped(
         
         'id': json['id'] == null ? undefined : json['id'],
         'workspace_id': json['workspace_id'] == null ? undefined : json['workspace_id'],
+        'transaction_type': json['transaction_type'] == null ? undefined : json['transaction_type'],
         'amount': json['amount'] == null ? undefined : json['amount'],
         'balance_after': json['balance_after'] == null ? undefined : json['balance_after'],
         'description': json['description'] == null ? undefined : json['description'],
-        'type': json['type'] == null ? undefined : json['type'],
+        'metadata': json['metadata'] == null ? undefined : json['metadata'],
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
     };
 }
@@ -103,10 +123,11 @@ export function ListCreditTransactions200ResponseTransactionsInnerToJSONTyped(va
         
         'id': value['id'],
         'workspace_id': value['workspace_id'],
+        'transaction_type': value['transaction_type'],
         'amount': value['amount'],
         'balance_after': value['balance_after'],
         'description': value['description'],
-        'type': value['type'],
+        'metadata': value['metadata'],
         'created_at': value['created_at'] == null ? undefined : ((value['created_at']).toISOString()),
     };
 }

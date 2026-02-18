@@ -42,6 +42,12 @@ export interface GetBillingInfo200Response {
      * @type {string}
      * @memberof GetBillingInfo200Response
      */
+    stripe_subscription_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetBillingInfo200Response
+     */
     stripe_payment_method_id?: string;
     /**
      * 
@@ -60,7 +66,7 @@ export interface GetBillingInfo200Response {
      * @type {string}
      * @memberof GetBillingInfo200Response
      */
-    payment_method_brand?: string;
+    payment_method_brand?: GetBillingInfo200ResponsePaymentMethodBrandEnum;
     /**
      * 
      * @type {number}
@@ -78,13 +84,19 @@ export interface GetBillingInfo200Response {
      * @type {string}
      * @memberof GetBillingInfo200Response
      */
-    billing_status?: string;
+    billing_status?: GetBillingInfo200ResponseBillingStatusEnum;
     /**
      * 
      * @type {string}
      * @memberof GetBillingInfo200Response
      */
     last_payment_error?: string;
+    /**
+     * 
+     * @type {Date}
+     * @memberof GetBillingInfo200Response
+     */
+    last_low_balance_alert_at?: Date;
     /**
      * 
      * @type {Date}
@@ -98,6 +110,41 @@ export interface GetBillingInfo200Response {
      */
     updated_at?: Date;
 }
+
+
+/**
+ * @export
+ */
+export const GetBillingInfo200ResponsePaymentMethodBrandEnum = {
+    Amex: 'amex',
+    CartesBancaires: 'cartes_bancaires',
+    Diners: 'diners',
+    Discover: 'discover',
+    EftposAu: 'eftpos_au',
+    Jcb: 'jcb',
+    Link: 'link',
+    Mastercard: 'mastercard',
+    Unionpay: 'unionpay',
+    Visa: 'visa',
+    Unknown: 'unknown'
+} as const;
+export type GetBillingInfo200ResponsePaymentMethodBrandEnum = typeof GetBillingInfo200ResponsePaymentMethodBrandEnum[keyof typeof GetBillingInfo200ResponsePaymentMethodBrandEnum];
+
+/**
+ * @export
+ */
+export const GetBillingInfo200ResponseBillingStatusEnum = {
+    Active: 'active',
+    PastDue: 'past_due',
+    Unpaid: 'unpaid',
+    Canceled: 'canceled',
+    Incomplete: 'incomplete',
+    IncompleteExpired: 'incomplete_expired',
+    Trialing: 'trialing',
+    Paused: 'paused'
+} as const;
+export type GetBillingInfo200ResponseBillingStatusEnum = typeof GetBillingInfo200ResponseBillingStatusEnum[keyof typeof GetBillingInfo200ResponseBillingStatusEnum];
+
 
 /**
  * Check if a given object implements the GetBillingInfo200Response interface.
@@ -119,6 +166,7 @@ export function GetBillingInfo200ResponseFromJSONTyped(json: any, ignoreDiscrimi
         'id': json['id'] == null ? undefined : json['id'],
         'workspace_id': json['workspace_id'] == null ? undefined : json['workspace_id'],
         'stripe_customer_id': json['stripe_customer_id'] == null ? undefined : json['stripe_customer_id'],
+        'stripe_subscription_id': json['stripe_subscription_id'] == null ? undefined : json['stripe_subscription_id'],
         'stripe_payment_method_id': json['stripe_payment_method_id'] == null ? undefined : json['stripe_payment_method_id'],
         'billing_email': json['billing_email'] == null ? undefined : json['billing_email'],
         'payment_method_last4': json['payment_method_last4'] == null ? undefined : json['payment_method_last4'],
@@ -127,6 +175,7 @@ export function GetBillingInfo200ResponseFromJSONTyped(json: any, ignoreDiscrimi
         'payment_method_exp_year': json['payment_method_exp_year'] == null ? undefined : json['payment_method_exp_year'],
         'billing_status': json['billing_status'] == null ? undefined : json['billing_status'],
         'last_payment_error': json['last_payment_error'] == null ? undefined : json['last_payment_error'],
+        'last_low_balance_alert_at': json['last_low_balance_alert_at'] == null ? undefined : (new Date(json['last_low_balance_alert_at'])),
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'updated_at': json['updated_at'] == null ? undefined : (new Date(json['updated_at'])),
     };
@@ -146,6 +195,7 @@ export function GetBillingInfo200ResponseToJSONTyped(value?: GetBillingInfo200Re
         'id': value['id'],
         'workspace_id': value['workspace_id'],
         'stripe_customer_id': value['stripe_customer_id'],
+        'stripe_subscription_id': value['stripe_subscription_id'],
         'stripe_payment_method_id': value['stripe_payment_method_id'],
         'billing_email': value['billing_email'],
         'payment_method_last4': value['payment_method_last4'],
@@ -154,6 +204,7 @@ export function GetBillingInfo200ResponseToJSONTyped(value?: GetBillingInfo200Re
         'payment_method_exp_year': value['payment_method_exp_year'],
         'billing_status': value['billing_status'],
         'last_payment_error': value['last_payment_error'],
+        'last_low_balance_alert_at': value['last_low_balance_alert_at'] == null ? undefined : ((value['last_low_balance_alert_at']).toISOString()),
         'created_at': value['created_at'] == null ? undefined : ((value['created_at']).toISOString()),
         'updated_at': value['updated_at'] == null ? undefined : ((value['updated_at']).toISOString()),
     };

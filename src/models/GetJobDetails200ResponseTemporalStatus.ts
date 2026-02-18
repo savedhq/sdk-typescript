@@ -30,7 +30,7 @@ export interface GetJobDetails200ResponseTemporalStatus {
      * @type {Date}
      * @memberof GetJobDetails200ResponseTemporalStatus
      */
-    next_run_time?: Date;
+    next_run_time?: Date | null;
     /**
      * Whether the schedule is paused
      * @type {boolean}
@@ -84,7 +84,7 @@ export function GetJobDetails200ResponseTemporalStatusToJSONTyped(value?: GetJob
     return {
         
         'schedule_id': value['schedule_id'],
-        'next_run_time': value['next_run_time'] == null ? undefined : ((value['next_run_time']).toISOString()),
+        'next_run_time': value['next_run_time'] === null ? null : ((value['next_run_time'] as any)?.toISOString()),
         'paused': value['paused'],
         'note': value['note'],
     };

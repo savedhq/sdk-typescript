@@ -24,31 +24,31 @@ import {
 /**
  * 
  * @export
- * @interface ErrorResponse
+ * @interface GetBillingInfo401Response
  */
-export interface ErrorResponse {
+export interface GetBillingInfo401Response {
     /**
      * Human-readable error message
      * @type {string}
-     * @memberof ErrorResponse
+     * @memberof GetBillingInfo401Response
      */
     message: string;
     /**
      * Machine-readable error code in SCREAMING_SNAKE_CASE
      * @type {string}
-     * @memberof ErrorResponse
+     * @memberof GetBillingInfo401Response
      */
-    code: ErrorResponseCodeEnum;
+    code: GetBillingInfo401ResponseCodeEnum;
     /**
      * Array of field-level validation errors (only present for validation failures)
      * @type {Array<GetBillingInfo401ResponseDetailsInner>}
-     * @memberof ErrorResponse
+     * @memberof GetBillingInfo401Response
      */
     details?: Array<GetBillingInfo401ResponseDetailsInner>;
     /**
      * OpenTelemetry trace ID for debugging
      * @type {string}
-     * @memberof ErrorResponse
+     * @memberof GetBillingInfo401Response
      */
     trace_id?: string;
 }
@@ -57,7 +57,7 @@ export interface ErrorResponse {
 /**
  * @export
  */
-export const ErrorResponseCodeEnum = {
+export const GetBillingInfo401ResponseCodeEnum = {
     BadRequest: 'BAD_REQUEST',
     Unauthorized: 'UNAUTHORIZED',
     Forbidden: 'FORBIDDEN',
@@ -67,23 +67,23 @@ export const ErrorResponseCodeEnum = {
     ValidationFailed: 'VALIDATION_FAILED',
     UnknownError: 'UNKNOWN_ERROR'
 } as const;
-export type ErrorResponseCodeEnum = typeof ErrorResponseCodeEnum[keyof typeof ErrorResponseCodeEnum];
+export type GetBillingInfo401ResponseCodeEnum = typeof GetBillingInfo401ResponseCodeEnum[keyof typeof GetBillingInfo401ResponseCodeEnum];
 
 
 /**
- * Check if a given object implements the ErrorResponse interface.
+ * Check if a given object implements the GetBillingInfo401Response interface.
  */
-export function instanceOfErrorResponse(value: object): value is ErrorResponse {
+export function instanceOfGetBillingInfo401Response(value: object): value is GetBillingInfo401Response {
     if (!('message' in value) || value['message'] === undefined) return false;
     if (!('code' in value) || value['code'] === undefined) return false;
     return true;
 }
 
-export function ErrorResponseFromJSON(json: any): ErrorResponse {
-    return ErrorResponseFromJSONTyped(json, false);
+export function GetBillingInfo401ResponseFromJSON(json: any): GetBillingInfo401Response {
+    return GetBillingInfo401ResponseFromJSONTyped(json, false);
 }
 
-export function ErrorResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): ErrorResponse {
+export function GetBillingInfo401ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetBillingInfo401Response {
     if (json == null) {
         return json;
     }
@@ -96,11 +96,11 @@ export function ErrorResponseFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ErrorResponseToJSON(json: any): ErrorResponse {
-    return ErrorResponseToJSONTyped(json, false);
+export function GetBillingInfo401ResponseToJSON(json: any): GetBillingInfo401Response {
+    return GetBillingInfo401ResponseToJSONTyped(json, false);
 }
 
-export function ErrorResponseToJSONTyped(value?: ErrorResponse | null, ignoreDiscriminator: boolean = false): any {
+export function GetBillingInfo401ResponseToJSONTyped(value?: GetBillingInfo401Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

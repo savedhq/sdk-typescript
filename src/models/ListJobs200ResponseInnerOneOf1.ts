@@ -60,7 +60,7 @@ export interface ListJobs200ResponseInnerOneOf1 {
      * @type {string}
      * @memberof ListJobs200ResponseInnerOneOf1
      */
-    agent_id?: string;
+    agent_id?: string | null;
     /**
      * Cron schedule expression
      * @type {string}

@@ -16,7 +16,7 @@
 import * as runtime from '../runtime';
 import type {
   CreateWorkspaceRequest,
-  GetBillingInfo404Response,
+  GetBillingInfo401Response,
   GetWorkspaceInfo200Response,
   ListWorkspaces200ResponseInner,
   UpdateWorkspaceRequest,
@@ -24,8 +24,8 @@ import type {
 import {
     CreateWorkspaceRequestFromJSON,
     CreateWorkspaceRequestToJSON,
-    GetBillingInfo404ResponseFromJSON,
-    GetBillingInfo404ResponseToJSON,
+    GetBillingInfo401ResponseFromJSON,
+    GetBillingInfo401ResponseToJSON,
     GetWorkspaceInfo200ResponseFromJSON,
     GetWorkspaceInfo200ResponseToJSON,
     ListWorkspaces200ResponseInnerFromJSON,
