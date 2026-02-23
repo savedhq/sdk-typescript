@@ -39,7 +39,7 @@ import {
  * 
  * @export
  */
-export type ListJobs200ResponseInner = ListJobs200ResponseInnerOneOf | ListJobs200ResponseInnerOneOf1 | ListJobs200ResponseInnerOneOf2;
+export type ListJobs200ResponseInner = { type: 'agent' } & ERRORUNKNOWN | { type: 'manual' } & ERRORUNKNOWN | { type: 'worker' } & ERRORUNKNOWN;
 
 export function ListJobs200ResponseInnerFromJSON(json: any): ListJobs200ResponseInner {
     return ListJobs200ResponseInnerFromJSONTyped(json, false);
@@ -49,20 +49,16 @@ export function ListJobs200ResponseInnerFromJSONTyped(json: any, ignoreDiscrimin
     if (json == null) {
         return json;
     }
-    if (typeof json !== 'object') {
-        return json;
+    switch (json['type']) {
+        case 'agent':
+            return Object.assign({}, ERRORUNKNOWNFromJSONTyped(json, true), { type: 'agent' } as const);
+        case 'manual':
+            return Object.assign({}, ERRORUNKNOWNFromJSONTyped(json, true), { type: 'manual' } as const);
+        case 'worker':
+            return Object.assign({}, ERRORUNKNOWNFromJSONTyped(json, true), { type: 'worker' } as const);
+        default:
+            return json;
     }
-    if (instanceOfListJobs200ResponseInnerOneOf(json)) {
-        return ListJobs200ResponseInnerOneOfFromJSONTyped(json, true);
-    }
-    if (instanceOfListJobs200ResponseInnerOneOf1(json)) {
-        return ListJobs200ResponseInnerOneOf1FromJSONTyped(json, true);
-    }
-    if (instanceOfListJobs200ResponseInnerOneOf2(json)) {
-        return ListJobs200ResponseInnerOneOf2FromJSONTyped(json, true);
-    }
-
-    return {} as any;
 }
 
 export function ListJobs200ResponseInnerToJSON(json: any): any {
@@ -73,19 +69,15 @@ export function ListJobs200ResponseInnerToJSONTyped(value?: ListJobs200ResponseI
     if (value == null) {
         return value;
     }
-    if (typeof value !== 'object') {
-        return value;
+    switch (value['type']) {
+        case 'agent':
+            return Object.assign({}, ERRORUNKNOWNToJSON(value), { type: 'agent' } as const);
+        case 'manual':
+            return Object.assign({}, ERRORUNKNOWNToJSON(value), { type: 'manual' } as const);
+        case 'worker':
+            return Object.assign({}, ERRORUNKNOWNToJSON(value), { type: 'worker' } as const);
+        default:
+            return json;
     }
-    if (instanceOfListJobs200ResponseInnerOneOf(value)) {
-        return ListJobs200ResponseInnerOneOfToJSON(value as ListJobs200ResponseInnerOneOf);
-    }
-    if (instanceOfListJobs200ResponseInnerOneOf1(value)) {
-        return ListJobs200ResponseInnerOneOf1ToJSON(value as ListJobs200ResponseInnerOneOf1);
-    }
-    if (instanceOfListJobs200ResponseInnerOneOf2(value)) {
-        return ListJobs200ResponseInnerOneOf2ToJSON(value as ListJobs200ResponseInnerOneOf2);
-    }
-
-    return {};
 }
 
