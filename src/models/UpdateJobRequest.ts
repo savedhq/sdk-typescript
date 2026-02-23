@@ -37,6 +37,12 @@ export interface UpdateJobRequest {
      * @memberof UpdateJobRequest
      */
     schedule?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateJobRequest
+     */
+    agent_id?: string;
 }
 
 /**
@@ -59,6 +65,7 @@ export function UpdateJobRequestFromJSONTyped(json: any, ignoreDiscriminator: bo
         'enabled': json['enabled'] == null ? undefined : json['enabled'],
         'name': json['name'] == null ? undefined : json['name'],
         'schedule': json['schedule'] == null ? undefined : json['schedule'],
+        'agent_id': json['agent_id'] == null ? undefined : json['agent_id'],
     };
 }
 
@@ -76,6 +83,7 @@ export function UpdateJobRequestToJSONTyped(value?: UpdateJobRequest | null, ign
         'enabled': value['enabled'],
         'name': value['name'],
         'schedule': value['schedule'],
+        'agent_id': value['agent_id'],
     };
 }
 
