@@ -122,9 +122,7 @@ export interface ListJobs200ResponseInnerOneOf1 {
  * @export
  */
 export const ListJobs200ResponseInnerOneOf1TypeEnum = {
-    Worker: 'worker',
-    Agent: 'agent',
-    Manual: 'manual'
+    Agent: 'agent'
 } as const;
 export type ListJobs200ResponseInnerOneOf1TypeEnum = typeof ListJobs200ResponseInnerOneOf1TypeEnum[keyof typeof ListJobs200ResponseInnerOneOf1TypeEnum];
 
