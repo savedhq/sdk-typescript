@@ -62,6 +62,12 @@ export interface ListJobs200ResponseInnerOneOf1 {
      */
     agent_id?: string | null;
     /**
+     * Name of the agent running this job
+     * @type {string}
+     * @memberof ListJobs200ResponseInnerOneOf1
+     */
+    agent_name?: string | null;
+    /**
      * Cron schedule expression
      * @type {string}
      * @memberof ListJobs200ResponseInnerOneOf1
@@ -178,6 +184,7 @@ export function ListJobs200ResponseInnerOneOf1FromJSONTyped(json: any, ignoreDis
         'type': json['type'],
         'provider': json['provider'],
         'agent_id': json['agent_id'] == null ? undefined : json['agent_id'],
+        'agent_name': json['agent_name'] == null ? undefined : json['agent_name'],
         'schedule': json['schedule'],
         'max_backup_count': json['max_backup_count'],
         'retention_lock_period': json['retention_lock_period'],
@@ -207,6 +214,7 @@ export function ListJobs200ResponseInnerOneOf1ToJSONTyped(value?: ListJobs200Res
         'type': value['type'],
         'provider': value['provider'],
         'agent_id': value['agent_id'],
+        'agent_name': value['agent_name'],
         'schedule': value['schedule'],
         'max_backup_count': value['max_backup_count'],
         'retention_lock_period': value['retention_lock_period'],
