@@ -32,6 +32,7 @@ src/models/GetBillingInfo200Response.ts
 src/models/GetBillingInfo401Response.ts
 src/models/GetBillingInfo401ResponseDetailsInner.ts
 src/models/GetClientConfigAuth200Response.ts
+src/models/GetJobBackupTrends200ResponseInner.ts
 src/models/GetJobDetails200Response.ts
 src/models/GetJobDetails200ResponseJob.ts
 src/models/GetJobDetails200ResponseRecentBackupsInner.ts

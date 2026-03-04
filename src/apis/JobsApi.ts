@@ -19,6 +19,7 @@ import type {
   CreateManualJobRequest,
   CreateWorkerJobRequest,
   GetBillingInfo401Response,
+  GetJobBackupTrends200ResponseInner,
   GetJobDetails200Response,
   GetJobHistory200ResponseInner,
   ListJobs200ResponseInner,
@@ -37,6 +38,8 @@ import {
     CreateWorkerJobRequestToJSON,
     GetBillingInfo401ResponseFromJSON,
     GetBillingInfo401ResponseToJSON,
+    GetJobBackupTrends200ResponseInnerFromJSON,
+    GetJobBackupTrends200ResponseInnerToJSON,
     GetJobDetails200ResponseFromJSON,
     GetJobDetails200ResponseToJSON,
     GetJobHistory200ResponseInnerFromJSON,
@@ -76,6 +79,11 @@ export interface DeleteJobRequest {
 }
 
 export interface GetJobRequest {
+    workspaceId: string;
+    jobId: string;
+}
+
+export interface GetJobBackupTrendsRequest {
     workspaceId: string;
     jobId: string;
 }
@@ -195,6 +203,23 @@ export interface JobsApiInterface {
      * Get a job
      */
     getJob(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInner>;
+
+    /**
+     * Returns daily backup execution counts for the last 30 days
+     * @summary Get Job Backup Trends
+     * @param {string} workspaceId 
+     * @param {string} jobId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof JobsApiInterface
+     */
+    getJobBackupTrendsRaw(requestParameters: GetJobBackupTrendsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetJobBackupTrends200ResponseInner>>>;
+
+    /**
+     * Returns daily backup execution counts for the last 30 days
+     * Get Job Backup Trends
+     */
+    getJobBackupTrends(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetJobBackupTrends200ResponseInner>>;
 
     /**
      * 
@@ -554,6 +579,61 @@ export class JobsApi extends runtime.BaseAPI implements JobsApiInterface {
      */
     async getJob(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListJobs200ResponseInner> {
         const response = await this.getJobRaw({ workspaceId: workspaceId, jobId: jobId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns daily backup execution counts for the last 30 days
+     * Get Job Backup Trends
+     */
+    async getJobBackupTrendsRaw(requestParameters: GetJobBackupTrendsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetJobBackupTrends200ResponseInner>>> {
+        if (requestParameters['workspaceId'] == null) {
+            throw new runtime.RequiredError(
+                'workspaceId',
+                'Required parameter "workspaceId" was null or undefined when calling getJobBackupTrends().'
+            );
+        }
+
+        if (requestParameters['jobId'] == null) {
+            throw new runtime.RequiredError(
+                'jobId',
+                'Required parameter "jobId" was null or undefined when calling getJobBackupTrends().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/workspaces/{workspace_id}/jobs/{job_id}/backup-trends`;
+        urlPath = urlPath.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId'])));
+        urlPath = urlPath.replace(`{${"job_id"}}`, encodeURIComponent(String(requestParameters['jobId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GetJobBackupTrends200ResponseInnerFromJSON));
+    }
+
+    /**
+     * Returns daily backup execution counts for the last 30 days
+     * Get Job Backup Trends
+     */
+    async getJobBackupTrends(workspaceId: string, jobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetJobBackupTrends200ResponseInner>> {
+        const response = await this.getJobBackupTrendsRaw({ workspaceId: workspaceId, jobId: jobId }, initOverrides);
         return await response.value();
     }
 

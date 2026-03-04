@@ -21,6 +21,7 @@ export * from './GetBillingInfo200Response';
 export * from './GetBillingInfo401Response';
 export * from './GetBillingInfo401ResponseDetailsInner';
 export * from './GetClientConfigAuth200Response';
+export * from './GetJobBackupTrends200ResponseInner';
 export * from './GetJobDetails200Response';
 export * from './GetJobDetails200ResponseJob';
 export * from './GetJobDetails200ResponseRecentBackupsInner';
