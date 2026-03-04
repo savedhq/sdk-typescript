@@ -51,6 +51,7 @@ src/models/GetWorkspaceInfo200ResponseJobStats.ts
 src/models/GetWorkspaceInfo200ResponseQuickActions.ts
 src/models/GetWorkspaceInfo200ResponseRecentActivity.ts
 src/models/GetWorkspaceInfo200ResponseStorageUsage.ts
+src/models/GitConfig.ts
 src/models/ListAgents200ResponseInner.ts
 src/models/ListCreditTransactions200Response.ts
 src/models/ListCreditTransactions200ResponseTransactionsInner.ts

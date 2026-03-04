@@ -40,6 +40,7 @@ export * from './GetWorkspaceInfo200ResponseJobStats';
 export * from './GetWorkspaceInfo200ResponseQuickActions';
 export * from './GetWorkspaceInfo200ResponseRecentActivity';
 export * from './GetWorkspaceInfo200ResponseStorageUsage';
+export * from './GitConfig';
 export * from './ListAgents200ResponseInner';
 export * from './ListCreditTransactions200Response';
 export * from './ListCreditTransactions200ResponseTransactionsInner';
