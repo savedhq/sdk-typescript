@@ -2,7 +2,10 @@
 
 export const ErrorResponseSchema = {
     type: 'object',
-    required: ['message', 'code'],
+    required: [
+        'message',
+        'code'
+    ],
     properties: {
         message: {
             type: 'string',
@@ -12,14 +15,24 @@ export const ErrorResponseSchema = {
         code: {
             type: 'string',
             description: 'Machine-readable error code in SCREAMING_SNAKE_CASE',
-            enum: ['BAD_REQUEST', 'UNAUTHORIZED', 'PAYMENT_REQUIRED', 'FORBIDDEN', 'NOT_FOUND', 'CONFLICT', 'INTERNAL_ERROR', 'VALIDATION_FAILED', 'UNKNOWN_ERROR'],
+            enum: [
+                'BAD_REQUEST',
+                'UNAUTHORIZED',
+                'PAYMENT_REQUIRED',
+                'FORBIDDEN',
+                'NOT_FOUND',
+                'CONFLICT',
+                'INTERNAL_ERROR',
+                'VALIDATION_FAILED',
+                'UNKNOWN_ERROR'
+            ],
             example: 'VALIDATION_FAILED'
         },
         details: {
             type: 'array',
             description: 'Array of field-level validation errors (only present for validation failures)',
             items: {
-                '$ref': '#/components/schemas/FieldError'
+                $ref: '#/components/schemas/FieldError'
             }
         },
         trace_id: {
@@ -32,7 +45,10 @@ export const ErrorResponseSchema = {
 
 export const FieldErrorSchema = {
     type: 'object',
-    required: ['field', 'message'],
+    required: [
+        'field',
+        'message'
+    ],
     properties: {
         field: {
             type: 'string',
@@ -49,7 +65,9 @@ export const FieldErrorSchema = {
 
 export const GitConfigSchema = {
     type: 'object',
-    required: ['url'],
+    required: [
+        'url'
+    ],
     properties: {
         url: {
             type: 'string'
@@ -88,7 +106,22 @@ export const GitConfigSchema = {
 
 export const WorkerJobResponseSchema = {
     type: 'object',
-    required: ['id', 'workspace_id', 'enabled', 'name', 'type', 'provider', 'schedule', 'max_backup_count', 'retention_lock_period', 'max_backup_age', 'compression_level', 'temporal_schedule_id', 'created_at', 'updated_at'],
+    required: [
+        'id',
+        'workspace_id',
+        'enabled',
+        'name',
+        'type',
+        'provider',
+        'schedule',
+        'max_backup_count',
+        'retention_lock_period',
+        'max_backup_age',
+        'compression_level',
+        'temporal_schedule_id',
+        'created_at',
+        'updated_at'
+    ],
     properties: {
         id: {
             type: 'string',
@@ -106,11 +139,24 @@ export const WorkerJobResponseSchema = {
         },
         type: {
             type: 'string',
-            enum: ['worker']
+            enum: [
+                'worker'
+            ]
         },
         provider: {
             type: 'string',
-            enum: ['http', 'ftp', 'webdav', 'git', 'aws.s3', 'aws.dynamodb', 'mysql', 'postgres', 'mssql', 'redis']
+            enum: [
+                'http',
+                'ftp',
+                'webdav',
+                'git',
+                'aws.s3',
+                'aws.dynamodb',
+                'mysql',
+                'postgres',
+                'mssql',
+                'redis'
+            ]
         },
         schedule: {
             type: 'string',
@@ -151,7 +197,22 @@ export const WorkerJobResponseSchema = {
 
 export const AgentJobResponseSchema = {
     type: 'object',
-    required: ['id', 'workspace_id', 'enabled', 'name', 'type', 'provider', 'schedule', 'max_backup_count', 'retention_lock_period', 'max_backup_age', 'compression_level', 'temporal_schedule_id', 'created_at', 'updated_at'],
+    required: [
+        'id',
+        'workspace_id',
+        'enabled',
+        'name',
+        'type',
+        'provider',
+        'schedule',
+        'max_backup_count',
+        'retention_lock_period',
+        'max_backup_age',
+        'compression_level',
+        'temporal_schedule_id',
+        'created_at',
+        'updated_at'
+    ],
     properties: {
         id: {
             type: 'string',
@@ -169,19 +230,38 @@ export const AgentJobResponseSchema = {
         },
         type: {
             type: 'string',
-            enum: ['agent']
+            enum: [
+                'agent'
+            ]
         },
         provider: {
             type: 'string',
-            enum: ['http', 'ftp', 'webdav', 'git', 'aws.s3', 'aws.dynamodb', 'mysql', 'postgres', 'mssql', 'redis']
+            enum: [
+                'http',
+                'ftp',
+                'webdav',
+                'git',
+                'aws.s3',
+                'aws.dynamodb',
+                'mysql',
+                'postgres',
+                'mssql',
+                'redis'
+            ]
         },
         agent_id: {
-            type: ['string', 'null'],
+            type: [
+                'string',
+                'null'
+            ],
             format: 'uuid',
             description: 'ID of the agent running this job'
         },
         agent_name: {
-            type: ['string', 'null'],
+            type: [
+                'string',
+                'null'
+            ],
             description: 'Name of the agent running this job'
         },
         schedule: {
@@ -223,7 +303,19 @@ export const AgentJobResponseSchema = {
 
 export const ManualJobResponseSchema = {
     type: 'object',
-    required: ['id', 'workspace_id', 'enabled', 'name', 'type', 'max_backup_count', 'retention_lock_period', 'max_backup_age', 'compression_level', 'created_at', 'updated_at'],
+    required: [
+        'id',
+        'workspace_id',
+        'enabled',
+        'name',
+        'type',
+        'max_backup_count',
+        'retention_lock_period',
+        'max_backup_age',
+        'compression_level',
+        'created_at',
+        'updated_at'
+    ],
     properties: {
         id: {
             type: 'string',
@@ -241,7 +333,9 @@ export const ManualJobResponseSchema = {
         },
         type: {
             type: 'string',
-            enum: ['manual']
+            enum: [
+                'manual'
+            ]
         },
         max_backup_count: {
             type: 'integer',
@@ -300,7 +394,19 @@ export const WorkspaceBillingResponseSchema = {
         },
         payment_method_brand: {
             type: 'string',
-            enum: ['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'jcb', 'link', 'mastercard', 'unionpay', 'visa', 'unknown']
+            enum: [
+                'amex',
+                'cartes_bancaires',
+                'diners',
+                'discover',
+                'eftpos_au',
+                'jcb',
+                'link',
+                'mastercard',
+                'unionpay',
+                'visa',
+                'unknown'
+            ]
         },
         payment_method_exp_month: {
             type: 'integer',
@@ -312,7 +418,16 @@ export const WorkspaceBillingResponseSchema = {
         },
         billing_status: {
             type: 'string',
-            enum: ['active', 'past_due', 'unpaid', 'canceled', 'incomplete', 'incomplete_expired', 'trialing', 'paused']
+            enum: [
+                'active',
+                'past_due',
+                'unpaid',
+                'canceled',
+                'incomplete',
+                'incomplete_expired',
+                'trialing',
+                'paused'
+            ]
         },
         last_payment_error: {
             type: 'string'
@@ -334,7 +449,9 @@ export const WorkspaceBillingResponseSchema = {
 
 export const AttachPaymentMethodRequestSchema = {
     type: 'object',
-    required: ['payment_method_id'],
+    required: [
+        'payment_method_id'
+    ],
     properties: {
         payment_method_id: {
             type: 'string'
@@ -344,7 +461,9 @@ export const AttachPaymentMethodRequestSchema = {
 
 export const CreateCreditPurchaseRequestSchema = {
     type: 'object',
-    required: ['amount_cents'],
+    required: [
+        'amount_cents'
+    ],
     properties: {
         amount_cents: {
             type: 'integer',
@@ -378,7 +497,9 @@ export const CreditPurchaseResponseSchema = {
 
 export const ConfirmCreditPurchaseRequestSchema = {
     type: 'object',
-    required: ['payment_intent_id'],
+    required: [
+        'payment_intent_id'
+    ],
     properties: {
         payment_intent_id: {
             type: 'string'
@@ -416,7 +537,12 @@ export const CreditTransactionSchema = {
         },
         transaction_type: {
             type: 'string',
-            enum: ['purchase', 'deduction', 'refund', 'bonus']
+            enum: [
+                'purchase',
+                'deduction',
+                'refund',
+                'bonus'
+            ]
         },
         amount: {
             type: 'integer',
@@ -448,7 +574,7 @@ export const CreditTransactionsResponseSchema = {
         transactions: {
             type: 'array',
             items: {
-                '$ref': '#/components/schemas/CreditTransaction'
+                $ref: '#/components/schemas/CreditTransaction'
             }
         },
         total: {
@@ -501,7 +627,7 @@ export const UsageHistoryResponseSchema = {
         metrics: {
             type: 'array',
             items: {
-                '$ref': '#/components/schemas/UsageMetricDTO'
+                $ref: '#/components/schemas/UsageMetricDTO'
             }
         },
         total: {
@@ -581,7 +707,7 @@ export const InvoicesResponseSchema = {
         invoices: {
             type: 'array',
             items: {
-                '$ref': '#/components/schemas/InvoiceDTO'
+                $ref: '#/components/schemas/InvoiceDTO'
             }
         }
     }
@@ -589,7 +715,13 @@ export const InvoicesResponseSchema = {
 
 export const WorkspaceResponseSchema = {
     type: 'object',
-    required: ['id', 'name', 'description', 'created_at', 'updated_at'],
+    required: [
+        'id',
+        'name',
+        'description',
+        'created_at',
+        'updated_at'
+    ],
     properties: {
         id: {
             type: 'string',
@@ -619,7 +751,9 @@ export const WorkspaceResponseSchema = {
 
 export const CreateWorkspaceSchema = {
     type: 'object',
-    required: ['name'],
+    required: [
+        'name'
+    ],
     properties: {
         name: {
             type: 'string',
@@ -637,7 +771,9 @@ export const CreateWorkspaceSchema = {
 
 export const UpdateWorkspaceSchema = {
     type: 'object',
-    required: ['name'],
+    required: [
+        'name'
+    ],
     properties: {
         name: {
             type: 'string',
@@ -855,7 +991,11 @@ export const HealthStatusSchema = {
     properties: {
         overall_health: {
             type: 'string',
-            enum: ['healthy', 'warning', 'critical']
+            enum: [
+                'healthy',
+                'warning',
+                'critical'
+            ]
         },
         issues: {
             type: 'array',
@@ -897,44 +1037,60 @@ export const WorkspaceDashboardSchema = {
     type: 'object',
     properties: {
         job_stats: {
-            '$ref': '#/components/schemas/JobStats'
+            $ref: '#/components/schemas/JobStats'
         },
         backup_stats: {
-            '$ref': '#/components/schemas/DashboardBackupStats'
+            $ref: '#/components/schemas/DashboardBackupStats'
         },
         agent_stats: {
-            '$ref': '#/components/schemas/DashboardAgentStats'
+            $ref: '#/components/schemas/DashboardAgentStats'
         },
         billing_overview: {
-            '$ref': '#/components/schemas/BillingOverview'
+            $ref: '#/components/schemas/BillingOverview'
         },
         storage_usage: {
-            '$ref': '#/components/schemas/StorageUsage'
+            $ref: '#/components/schemas/StorageUsage'
         },
         recent_activity: {
-            '$ref': '#/components/schemas/RecentActivity'
+            $ref: '#/components/schemas/RecentActivity'
         },
         backup_trends: {
             type: 'array',
             items: {
-                '$ref': '#/components/schemas/BackupTrendPoint'
+                $ref: '#/components/schemas/BackupTrendPoint'
             }
         },
         cost_trends: {
-            '$ref': '#/components/schemas/CostTrends'
+            $ref: '#/components/schemas/CostTrends'
         },
         health_status: {
-            '$ref': '#/components/schemas/HealthStatus'
+            $ref: '#/components/schemas/HealthStatus'
         },
         quick_actions: {
-            '$ref': '#/components/schemas/QuickActions'
+            $ref: '#/components/schemas/QuickActions'
         }
     }
 } as const;
 
 export const AgentResponseSchema = {
     type: 'object',
-    required: ['id', 'workspace_id', 'provider_user_id', 'username', 'name', 'description', 'status', 'password', 'grant_type', 'client_id', 'audience', 'realm', 'scope', 'created_at', 'updated_at'],
+    required: [
+        'id',
+        'workspace_id',
+        'provider_user_id',
+        'username',
+        'name',
+        'description',
+        'status',
+        'password',
+        'grant_type',
+        'client_id',
+        'audience',
+        'realm',
+        'scope',
+        'created_at',
+        'updated_at'
+    ],
     properties: {
         id: {
             type: 'string',
@@ -1037,7 +1193,14 @@ export const UpdateAgentSchema = {
 
 export const CreateWorkerJobSchema = {
     type: 'object',
-    required: ['name', 'provider', 'schedule', 'max_backup_count', 'retention_lock_period', 'max_backup_age'],
+    required: [
+        'name',
+        'provider',
+        'schedule',
+        'max_backup_count',
+        'retention_lock_period',
+        'max_backup_age'
+    ],
     properties: {
         name: {
             type: 'string',
@@ -1045,7 +1208,18 @@ export const CreateWorkerJobSchema = {
         },
         provider: {
             type: 'string',
-            enum: ['http', 'ftp', 'webdav', 'git', 'aws.s3', 'aws.dynamodb', 'mysql', 'postgres', 'mssql', 'redis']
+            enum: [
+                'http',
+                'ftp',
+                'webdav',
+                'git',
+                'aws.s3',
+                'aws.dynamodb',
+                'mysql',
+                'postgres',
+                'mssql',
+                'redis'
+            ]
         },
         config: {
             type: 'object'
@@ -1079,7 +1253,15 @@ export const CreateWorkerJobSchema = {
 
 export const CreateAgentJobSchema = {
     type: 'object',
-    required: ['name', 'agent_id', 'provider', 'schedule', 'max_backup_count', 'retention_lock_period', 'max_backup_age'],
+    required: [
+        'name',
+        'agent_id',
+        'provider',
+        'schedule',
+        'max_backup_count',
+        'retention_lock_period',
+        'max_backup_age'
+    ],
     properties: {
         name: {
             type: 'string',
@@ -1091,7 +1273,18 @@ export const CreateAgentJobSchema = {
         },
         provider: {
             type: 'string',
-            enum: ['http', 'ftp', 'webdav', 'git', 'aws.s3', 'aws.dynamodb', 'mysql', 'postgres', 'mssql', 'redis']
+            enum: [
+                'http',
+                'ftp',
+                'webdav',
+                'git',
+                'aws.s3',
+                'aws.dynamodb',
+                'mysql',
+                'postgres',
+                'mssql',
+                'redis'
+            ]
         },
         schedule: {
             type: 'string'
@@ -1122,7 +1315,12 @@ export const CreateAgentJobSchema = {
 
 export const CreateManualJobSchema = {
     type: 'object',
-    required: ['name', 'max_backup_count', 'retention_lock_period', 'max_backup_age'],
+    required: [
+        'name',
+        'max_backup_count',
+        'retention_lock_period',
+        'max_backup_age'
+    ],
     properties: {
         name: {
             type: 'string',
@@ -1193,7 +1391,14 @@ export const JobBackupStatsSchema = {
 
 export const BackupResponseSchema = {
     type: 'object',
-    required: ['id', 'workspace_id', 'job_id', 'status', 'created_at', 'updated_at'],
+    required: [
+        'id',
+        'workspace_id',
+        'job_id',
+        'status',
+        'created_at',
+        'updated_at'
+    ],
     properties: {
         id: {
             type: 'string',
@@ -1209,14 +1414,25 @@ export const BackupResponseSchema = {
         },
         status: {
             type: 'string',
-            enum: ['requested', 'uploading', 'completed', 'failed']
+            enum: [
+                'requested',
+                'uploading',
+                'completed',
+                'failed'
+            ]
         },
         started_at: {
-            type: ['string', 'null'],
+            type: [
+                'string',
+                'null'
+            ],
             format: 'date-time'
         },
         completed_at: {
-            type: ['string', 'null'],
+            type: [
+                'string',
+                'null'
+            ],
             format: 'date-time'
         },
         created_at: {
@@ -1232,14 +1448,21 @@ export const BackupResponseSchema = {
 
 export const TemporalStatusSchema = {
     type: 'object',
-    required: ['schedule_id', 'paused', 'note'],
+    required: [
+        'schedule_id',
+        'paused',
+        'note'
+    ],
     properties: {
         schedule_id: {
             type: 'string',
             description: 'Temporal schedule ID'
         },
         next_run_time: {
-            type: ['string', 'null'],
+            type: [
+                'string',
+                'null'
+            ],
             format: 'date-time',
             description: 'Next scheduled run time'
         },
@@ -1256,18 +1479,21 @@ export const TemporalStatusSchema = {
 
 export const JobDetailsResponseSchema = {
     type: 'object',
-    required: ['job', 'cost'],
+    required: [
+        'job',
+        'cost'
+    ],
     properties: {
         job: {
             oneOf: [
                 {
-                    '$ref': '#/components/schemas/WorkerJobResponse'
+                    $ref: '#/components/schemas/WorkerJobResponse'
                 },
                 {
-                    '$ref': '#/components/schemas/AgentJobResponse'
+                    $ref: '#/components/schemas/AgentJobResponse'
                 },
                 {
-                    '$ref': '#/components/schemas/ManualJobResponse'
+                    $ref: '#/components/schemas/ManualJobResponse'
                 }
             ],
             discriminator: {
@@ -1281,19 +1507,19 @@ export const JobDetailsResponseSchema = {
             description: 'The job object (type varies based on job type)'
         },
         stats: {
-            '$ref': '#/components/schemas/JobBackupStats',
+            $ref: '#/components/schemas/JobBackupStats',
             nullable: true,
             description: 'Backup statistics for this job'
         },
         recent_backups: {
             type: 'array',
             items: {
-                '$ref': '#/components/schemas/BackupResponse'
+                $ref: '#/components/schemas/BackupResponse'
             },
             description: 'Recent backups for this job'
         },
         temporal_status: {
-            '$ref': '#/components/schemas/TemporalStatus',
+            $ref: '#/components/schemas/TemporalStatus',
             nullable: true,
             description: 'Temporal workflow status (only for scheduled jobs)'
         },
@@ -1306,7 +1532,11 @@ export const JobDetailsResponseSchema = {
 
 export const JobHistoryItemSchema = {
     type: 'object',
-    required: ['run_id', 'status', 'start_time'],
+    required: [
+        'run_id',
+        'status',
+        'start_time'
+    ],
     properties: {
         run_id: {
             type: 'string'
@@ -1328,7 +1558,7 @@ export const JobHistoryItemSchema = {
             description: 'Present only when the workflow has finished'
         },
         backup: {
-            '$ref': '#/components/schemas/BackupResponse',
+            $ref: '#/components/schemas/BackupResponse',
             description: 'Present only when a backup record is associated with this run'
         }
     }
@@ -1336,7 +1566,10 @@ export const JobHistoryItemSchema = {
 
 export const BackupUploadResponseSchema = {
     type: 'object',
-    required: ['upload_url', 'expires_at'],
+    required: [
+        'upload_url',
+        'expires_at'
+    ],
     properties: {
         upload_url: {
             type: 'string',
@@ -1352,7 +1585,9 @@ export const BackupUploadResponseSchema = {
 
 export const BackupConfirmSchema = {
     type: 'object',
-    required: ['status'],
+    required: [
+        'status'
+    ],
     properties: {
         status: {
             type: 'boolean'
@@ -1362,7 +1597,10 @@ export const BackupConfirmSchema = {
 
 export const DownloadURLResponseSchema = {
     type: 'object',
-    required: ['download_url', 'expires_at'],
+    required: [
+        'download_url',
+        'expires_at'
+    ],
     properties: {
         download_url: {
             type: 'string',
