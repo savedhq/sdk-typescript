@@ -67,7 +67,6 @@ export const createClient = (config: Config = {}): Client => {
 
   // @ts-ignore
   const request: Client['request'] = async (options) => {
-    // @ts-ignore
     const { opts, url } = await beforeRequest(options);
 
     for (const fn of interceptors.request.fns) {
